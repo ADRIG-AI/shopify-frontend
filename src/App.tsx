@@ -4,6 +4,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import Business from "./pages/Business";
+import About from "./pages/About";
+import Insights from "./pages/Insights";
+import Pricing from "./pages/Pricing";
 import Login from "./pages/Login";
 import AuthCallback from "./pages/AuthCallback";
 import Dashboard from "./pages/Dashboard";
@@ -31,6 +35,10 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/business" element={<Business />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/insights" element={<Insights />} />
+            <Route path="/pricing" element={<Pricing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/auth/callback" element={<AuthCallback />} />
@@ -45,7 +53,7 @@ const App = () => (
             <Route
               path="/products"
               element={
-                <ProtectedRoute requiredRoles={["admin", "manager","viewer"]} >
+                <ProtectedRoute requiredRoles={["admin", "manager", "viewer"]} >
                   <Products />
                 </ProtectedRoute>
               }

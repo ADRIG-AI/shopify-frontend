@@ -18,7 +18,18 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ['Inter', 'sans-serif'],
+				display: ['Inter', 'sans-serif'],
+				body: ['Inter', 'sans-serif'],
+			},
 			colors: {
+				// Dagala Brand Colors
+				'dagala-dark': '#1c1c1c',
+				'dagala-light': '#c9c9c9',
+				'dagala-medium': '#3b3b42',
+				'dagala-black': '#000000',
+				'dagala-white': '#ffffff',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
