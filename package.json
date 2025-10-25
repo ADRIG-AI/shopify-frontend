@@ -8,7 +8,9 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "setup-env": "./setup-env.sh",
+    "env:check": "node -e \"console.log('Environment variables check:'); console.log('VITE_SHOPIFY_API_KEY:', process.env.VITE_SHOPIFY_API_KEY ? '✅ Set' : '❌ Missing'); console.log('VITE_SUPABASE_URL:', process.env.VITE_SUPABASE_URL ? '✅ Set' : '❌ Missing');\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
