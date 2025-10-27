@@ -223,7 +223,18 @@ const AuthCallback = () => {
         });
 
         if (!response.ok) {
-          const errorData = await response.json();
+          const errorText = await response.text();
+          console.error('Token exchange failed:', {
+            status: response.status,
+            statusText: response.statusText,
+            response: errorText
+          });
+          let errorData;
+          try {
+            errorData = JSON.parse(errorText);
+          } catch {
+            throw new Error(`Server error: ${response.status} - ${errorText}`);
+          }
           throw new Error(
             errorData.error ||
               "Failed to exchange authorization code for access token"
