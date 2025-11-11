@@ -4,7 +4,7 @@ services:
   # Backend Node.js Express API
   backend:
     container_name: backend
-    image: logeshloki585/shopifyq:v1
+    image: logeshloki585/dagala-analytics:v1
     ports:
       - "3001:3000"
     environment:
@@ -20,12 +20,12 @@ services:
     volumes:
       - ./logs:/app/logs
     networks:
-      - shopifyq-network
+      - dagala-analytics-network
 
   # Frontend Vite React App
   frontend:
     container_name: frontend
-    image: logeshloki585/shopifyq-main:v1.1
+    image: logeshloki585/dagala-analytics-main:v1.1
     ports:
       - "8080:8080"
     environment:
@@ -44,8 +44,8 @@ services:
     volumes:
       - ./logs:/app/logs
     networks:
-      - shopifyq-network
+      - dagala-analytics-network
 
 networks:
-  shopifyq-network:
+  dagala-analytics-network:
     driver: bridge

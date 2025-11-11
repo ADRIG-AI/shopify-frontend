@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabaseClient";
 import clsx from "clsx";
 
 /* ────────────────────────────────────────────────────────────
@@ -11,11 +11,6 @@ interface Props {
   order: { id: number | string } | null;
   onClose: () => void;
 }
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
 
 /* ────────────────────────────────────────────────────────────
  *  Helpers

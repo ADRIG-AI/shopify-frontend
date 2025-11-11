@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  shopifyq-app:
+  dagala-analytics-app:
     container_name: shopy
     image: shopy
     ports:
@@ -25,7 +25,7 @@ services:
       # - ./src/api:/app/src/api
       - ./logs:/app/logs
     networks:
-      - shopifyq-network
+      - dagala-analytics-network
     # Uncomment if you need healthcheck
     # healthcheck:
     #   test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
@@ -35,5 +35,5 @@ services:
     #   start_period: 10s
 
 networks:
-  shopifyq-network:
+  dagala-analytics-network:
     driver: bridge

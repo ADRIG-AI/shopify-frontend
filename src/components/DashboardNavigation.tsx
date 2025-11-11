@@ -91,7 +91,7 @@ export const DashboardNavigation = () => {
                 <span className="text-white font-bold text-sm">S</span>
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                ShopifyQ
+                Dagala Analytics
               </span>
             </Link>
 
@@ -253,7 +253,7 @@ export const DashboardNavigation = () => {
                 <span className="text-white font-bold text-sm">S</span>
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                ShopifyQ
+                Dagala Analytics
               </span>
             </Link>
 
@@ -411,7 +411,9 @@ export const DashboardNavigation = () => {
               <span className="text-white font-bold text-sm">S</span>
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              ShopifyQ
+              Dagala Analytics
+              Dagala Analytics
+              Dagala Analytics
             </span>
           </Link>
 

@@ -48,7 +48,7 @@ const Index = () => {
 
   const testimonials = [
     {
-      quote: "ShopifyQ reduced our Global Trade processing time by 80%. Game-changer for our international expansion.",
+      quote: "Dagala Analytics reduced our Global Trade processing time by 80%. Game-changer for our international expansion.",
       name: "Sarah Chen",
       title: "EcoStyle Co.",
       image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
@@ -442,7 +442,7 @@ const Index = () => {
             Ready to automate your Global Trade?
           </h2>
           <p className="text-base font-body text-dagala-medium mb-8 max-w-2xl mx-auto leading-relaxed">
-            Join hundreds of DTC brands already saving time and reducing risk with ShopifyQ.
+            Join hundreds of DTC brands already saving time and reducing risk with Dagala Analytics.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">

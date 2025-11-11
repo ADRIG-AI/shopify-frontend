@@ -18,15 +18,10 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { DashboardNavigation } from "@/components/DashboardNavigation";
-import { createClient } from "@supabase/supabase-js";
 import InvoiceGenerator from "@/components/InvoiceGenerator";
 import PackingListGenerator from "@/components/PackingListGenerator";
 import OrderDetailsModal from "@/components/OrderDetailsModal";
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
+import { supabase } from "@/lib/supabaseClient";
 
 const LoadingSpinner = ({ size = "md" }) => {
   const sizeClasses = {

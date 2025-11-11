@@ -1,12 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Download, X } from "lucide-react";
 import jsPDF from 'jspdf';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
+import { supabase } from "@/lib/supabaseClient";
 
 interface Order {
   id: string;

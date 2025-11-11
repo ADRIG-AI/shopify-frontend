@@ -136,7 +136,8 @@
 //               <span className="text-white font-bold text-sm">S</span>
 //             </div>
 //             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-//               ShopifyQ
+//               Dagala Analytics
+//               Dagala Analytics
 //             </span>
 //           </div>
 //           <CardTitle className="text-2xl">Connecting Your Store</CardTitle>
@@ -330,7 +331,7 @@ const AuthCallback = () => {
               <span className="text-white font-bold text-sm">S</span>
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              ShopifyQ
+              Dagala Analytics
             </span>
           </div>
           <CardTitle className="text-2xl">Connecting Your Store</CardTitle>
