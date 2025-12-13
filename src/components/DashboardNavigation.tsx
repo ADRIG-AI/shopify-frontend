@@ -38,7 +38,7 @@ export const DashboardNavigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { priceId, loading } = usePlan();
+  const { effectivePriceId, loading } = usePlan();
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const isLoggedIn = !!token;
@@ -81,7 +81,7 @@ export const DashboardNavigation = () => {
   if (loading) return null;
 
   // Free plan
-  if (!priceId || priceId === "NULL") {
+  if (!effectivePriceId || effectivePriceId === "NULL") {
     return (
       <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4">
@@ -241,8 +241,8 @@ export const DashboardNavigation = () => {
 
   // Starter plan
   if (
-    priceId === "price_1RcnoUQiUhrwJo9CamPZGsh1" ||
-    priceId === "price_1RcnosQiUhrwJo9CzIMCgiea"
+    effectivePriceId === "price_1RcnoUQiUhrwJo9CamPZGsh1" ||
+    effectivePriceId === "price_1RcnosQiUhrwJo9CzIMCgiea"
   ) {
     return (
       <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
@@ -411,8 +411,6 @@ export const DashboardNavigation = () => {
               <span className="text-white font-bold text-sm">S</span>
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Dagala Analytics
-              Dagala Analytics
               Dagala Analytics
             </span>
           </Link>

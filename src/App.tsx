@@ -68,6 +68,7 @@ const App = () => (
                     "price_1RcnosQiUhrwJo9CzIMCgiea",
                     "price_1RcnpzQiUhrwJo9CVz7Wsug6",
                     "price_1RcnqKQiUhrwJo9CCdhvD8Ep",
+                    "price_1QZ002FZ0000000000000000",
                   ]}
                 >
                   <HSCodes />
@@ -84,6 +85,7 @@ const App = () => (
                     "price_1RcnosQiUhrwJo9CzIMCgiea",
                     "price_1RcnpzQiUhrwJo9CVz7Wsug6",
                     "price_1RcnqKQiUhrwJo9CCdhvD8Ep",
+                    "price_1QZ002FZ0000000000000000",
                   ]}
                 >
                   <Documents />
@@ -98,6 +100,7 @@ const App = () => (
                   requiredPlans={[
                     "price_1RcnpzQiUhrwJo9CVz7Wsug6",
                     "price_1RcnqKQiUhrwJo9CCdhvD8Ep",
+                    "price_1QZ002FZ0000000000000000",
                   ]}
                 >
                   <LandedCost />
@@ -112,6 +115,7 @@ const App = () => (
                   requiredPlans={[
                     "price_1RcnpzQiUhrwJo9CVz7Wsug6",
                     "price_1RcnqKQiUhrwJo9CCdhvD8Ep",
+                    "price_1QZ002FZ0000000000000000",
                   ]}
                 >
                   <LandedCostHistory />
@@ -126,6 +130,7 @@ const App = () => (
                   requiredPlans={[
                     "price_1RcnpzQiUhrwJo9CVz7Wsug6",
                     "price_1RcnqKQiUhrwJo9CCdhvD8Ep",
+                    "price_1QZ002FZ0000000000000000",
                   ]}
                 >
                   <ESG />
@@ -150,6 +155,7 @@ const App = () => (
                     "price_1RcnosQiUhrwJo9CzIMCgiea",
                     "price_1RcnpzQiUhrwJo9CVz7Wsug6",
                     "price_1RcnqKQiUhrwJo9CCdhvD8Ep",
+                    "price_1QZ002FZ0000000000000000",
                   ]}
                 >
                   <Admin />

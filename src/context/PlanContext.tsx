@@ -79,6 +79,7 @@ const PlanContext = createContext({
   planId: null,
   subscriptionStatus: null,
   hasAccess: false,
+  effectivePriceId: null,
   loading: true, 
   user: null,
   refreshPlan: () => {} 
@@ -93,6 +94,8 @@ export const PlanProvider = ({ children }) => {
   const [hasAccess, setHasAccess] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const effectivePriceId = subscriptionStatus === 'pending' ? null : priceId;
 
   const fetchPlan = async () => {
     const token = localStorage.getItem('token');
@@ -160,7 +163,7 @@ export const PlanProvider = ({ children }) => {
   }, []);
 
   return (
-    <PlanContext.Provider value={{ priceId, planId, subscriptionStatus, hasAccess, user, loading, refreshPlan }}>
+    <PlanContext.Provider value={{ priceId, planId, subscriptionStatus, hasAccess, effectivePriceId, user, loading, refreshPlan }}>
       {children}
     </PlanContext.Provider>
   );

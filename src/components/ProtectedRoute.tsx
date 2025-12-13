@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({ children, requiredRoles, requiredPlans }: ProtectedRouteProps) => {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const { priceId, loading } = usePlan();
+  const { priceId, planId, subscriptionStatus, hasAccess, loading } = usePlan();
 
   if (!token) {
     return <Navigate to="/login" replace />;
@@ -18,7 +18,9 @@ const ProtectedRoute = ({ children, requiredRoles, requiredPlans }: ProtectedRou
 
   if (loading) return null;
 
-  if (requiredPlans && !requiredPlans.includes(priceId)) {
+  // Allow access but components will check hasAccess for functionality restrictions
+
+  if (requiredPlans && (subscriptionStatus === 'pending' || !priceId || !requiredPlans.includes(priceId))) {
     return <Navigate to="/billing" replace />;
   }
 
