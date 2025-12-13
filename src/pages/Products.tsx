@@ -444,6 +444,7 @@ const ProductEditModal = ({ productId, onClose, onSave }) => {
     body_html: "",
     vendor: "",
     product_type: "",
+    variants: [{ price: "", sku: "" }],
   });
   const backend = import.meta.env.VITE_BACKEND_ENDPOINT;
 
@@ -469,6 +470,11 @@ const ProductEditModal = ({ productId, onClose, onSave }) => {
           body_html: data.descriptionHtml || "",
           vendor: data.vendor || "",
           product_type: data.productType || "",
+          variants: data.variants?.edges?.map(edge => ({
+            id: edge.node.id,
+            price: edge.node.price || "",
+            sku: edge.node.sku || "",
+          })) || [{ price: "", sku: "" }],
         });
       }
     } catch (e) {
@@ -521,12 +527,17 @@ const ProductEditModal = ({ productId, onClose, onSave }) => {
         }
       }
 
-      const updateData = { ...form };
+      const { variants, ...productUpdateData } = form;
+      const updateData = { ...productUpdateData };
       if (media.length > 0) {
         updateData.media = media;
       }
       if (removedImageIds.length > 0) {
         updateData.removeImages = removedImageIds;
+      }
+      // Add variants separately for backend processing
+      if (variants && variants.length > 0) {
+        updateData.variants = variants;
       }
 
       const updateResp = await fetch(`${backend}${API.PRODUCT_UPDATE}`, {
@@ -617,6 +628,28 @@ const ProductEditModal = ({ productId, onClose, onSave }) => {
                 placeholder="Product Type"
                 value={form.product_type}
                 onChange={(e) => setForm({...form, product_type: e.target.value})}
+              />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Input
+                placeholder="Price"
+                type="number"
+                step="0.01"
+                value={form.variants[0]?.price || ""}
+                onChange={(e) => {
+                  const newVariants = [...form.variants];
+                  newVariants[0] = { ...newVariants[0], price: e.target.value };
+                  setForm({...form, variants: newVariants});
+                }}
+              />
+              <Input
+                placeholder="SKU"
+                value={form.variants[0]?.sku || ""}
+                onChange={(e) => {
+                  const newVariants = [...form.variants];
+                  newVariants[0] = { ...newVariants[0], sku: e.target.value };
+                  setForm({...form, variants: newVariants});
+                }}
               />
             </div>
             <Textarea

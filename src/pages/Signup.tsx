@@ -7,7 +7,7 @@ import { supabase } from "../lib/supabaseClient";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [storeUrl, setStoreUrl] = useState("");
+  const [shopName, setShopName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
@@ -18,17 +18,17 @@ const Signup = () => {
     setError("");
     setLoading(true);
 
-    // Validate store URL format
-    const storeUrlPattern = /^[a-zA-Z0-9][a-zA-Z0-9-]*\.myshopify\.com$/;
-    if (!storeUrlPattern.test(storeUrl)) {
+    // Validate shop name format
+    const shopNamePattern = /^[a-zA-Z0-9][a-zA-Z0-9-]*$/;
+    if (!shopNamePattern.test(shopName)) {
       setError(
-        "Please enter a valid Shopify store URL (e.g., your-store.myshopify.com)"
+        "Please enter a valid shop name (e.g., your-store)"
       );
       setLoading(false);
       return;
     }
-    // Normalize the store URL for consistency
-    const normalizedStoreUrl = storeUrl.trim().toLowerCase();
+    // Construct the full store URL
+    const normalizedStoreUrl = `${shopName.trim().toLowerCase()}.myshopify.com`;
 
     // Hash the password (client-side for demo; in production, do this server-side)
     const hashPassword = async (password: string) => {
@@ -198,13 +198,13 @@ const Signup = () => {
                     />
                   </div>
                   <div className="mb-6">
-                    <label className="block text-dagala-black mb-1 font-body-medium">Shopify Store URL</label>
+                    <label className="block text-dagala-black mb-1 font-body-medium">Shop Name</label>
                     <input
                       type="text"
                       className="w-full px-4 py-3 border-2 border-dagala-light rounded-lg focus:outline-none focus:ring-2 focus:ring-dagala-black focus:border-dagala-black transition-colors font-body"
-                      value={storeUrl}
-                      onChange={(e) => setStoreUrl(e.target.value)}
-                      placeholder="your-store.myshopify.com"
+                      value={shopName}
+                      onChange={(e) => setShopName(e.target.value)}
+                      placeholder="your-store"
                       required
                     />
                   </div>

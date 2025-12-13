@@ -76,6 +76,9 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 const PlanContext = createContext({ 
   priceId: null, 
+  planId: null,
+  subscriptionStatus: null,
+  hasAccess: false,
   loading: true, 
   user: null,
   refreshPlan: () => {} 
@@ -85,6 +88,9 @@ export const usePlan = () => useContext(PlanContext);
 
 export const PlanProvider = ({ children }) => {
   const [priceId, setPriceId] = useState(null);
+  const [planId, setPlanId] = useState(null);
+  const [subscriptionStatus, setSubscriptionStatus] = useState(null);
+  const [hasAccess, setHasAccess] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -114,6 +120,9 @@ export const PlanProvider = ({ children }) => {
       if (res.ok) {
         const userResponse = await res.json();
         setPriceId(userResponse?.priceId || null);
+        setPlanId(userResponse?.plan_id || null);
+        setSubscriptionStatus(userResponse?.subscription_status || null);
+        setHasAccess(userResponse?.hasAccess || false);
       }
     } catch (error) {
       console.error('Failed to fetch plan:', error);
@@ -151,7 +160,7 @@ export const PlanProvider = ({ children }) => {
   }, []);
 
   return (
-    <PlanContext.Provider value={{ priceId, user, loading, refreshPlan }}>
+    <PlanContext.Provider value={{ priceId, planId, subscriptionStatus, hasAccess, user, loading, refreshPlan }}>
       {children}
     </PlanContext.Provider>
   );
