@@ -113,21 +113,21 @@ const Signup = () => {
       </nav>
 
       {/* Signup Section */}
-      <section className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 py-16">
+      <section className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 sm:p-6 py-12 sm:py-16">
         <div className="w-full max-w-md">
           <Card className="border-0 shadow-lg bg-white">
-            <CardHeader className="text-center pb-6">
-              <div className="flex items-center justify-center mb-6">
+            <CardHeader className="text-center pb-4 sm:pb-6 px-4 sm:px-6 pt-6">
+              <div className="flex items-center justify-center mb-4 sm:mb-6">
                 <Logo size="lg" linkTo={null} />
               </div>
 
-              <CardTitle className="text-3xl font-bold text-slate-900 mb-2">Create Your Account</CardTitle>
-              <CardDescription className="text-base text-slate-600">
+              <CardTitle className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Create Your Account</CardTitle>
+              <CardDescription className="text-sm sm:text-base text-slate-600">
                 Sign up to manage your Dagala Analytics account
               </CardDescription>
             </CardHeader>
 
-            <CardContent className="px-8 pb-8">
+            <CardContent className="px-4 sm:px-8 pb-6 sm:pb-8">
               {error && (
                 <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-6 text-sm">
                   {error}

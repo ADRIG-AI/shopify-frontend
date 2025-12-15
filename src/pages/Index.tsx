@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import Footer from "@/components/Footer";
 import Logo from "@/components/Logo";
-import { ArrowRight, Shield, BarChart3, FileText, Globe, Zap, CheckCircle, Users, TrendingUp, Package, DollarSign, Clock, AlertTriangle, Eye, ChevronRight, ChevronLeft, Settings, Play } from "lucide-react";
+import { ArrowRight, Shield, BarChart3, FileText, Globe, Zap, CheckCircle, Users, TrendingUp, Package, DollarSign, Clock, AlertTriangle, Eye, ChevronRight, ChevronLeft, Settings, Play, Menu, X } from "lucide-react";
 import { ChartContainer } from "@/components/ui/chart";
 import { BarChart, Bar, Cell } from "recharts";
 
@@ -15,6 +15,7 @@ const Index = () => {
   const [selectedTimeframe, setSelectedTimeframe] = useState("A Week");
   const [selectedTab, setSelectedTab] = useState("Compliance");
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Chart data - Real metrics for Global Trade platform
   const productsProcessedData = [
@@ -126,133 +127,175 @@ const Index = () => {
               <Link to="/pricing" className="font-medium text-sm text-slate-600 hover:text-slate-900 transition-colors">Pricing</Link>
             </div>
 
-              <div className="flex items-center space-x-6">
-                <div className="hidden lg:flex items-center space-x-4 text-sm text-slate-600">
-                  <a href="mailto:support@dagala.com" className="hover:text-slate-900 transition-colors">support@dagala.com</a>
-                  <a href="tel:+15551234567" className="hover:text-slate-900 transition-colors">+1 (555) 123-4567</a>
-                </div>
-              <Link to="/login">
-                <Button variant="ghost" className="text-slate-900 hover:bg-slate-100">Login</Button>
-              </Link>
-              <Link to="/signup">
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6">
-                  Get Started
-                </Button>
-              </Link>
+            <div className="flex items-center space-x-4 sm:space-x-6">
+              <div className="hidden lg:flex items-center space-x-4 text-sm text-slate-600">
+                <a href="mailto:support@dagala.com" className="hover:text-slate-900 transition-colors">support@dagala.com</a>
+                <a href="tel:+15551234567" className="hover:text-slate-900 transition-colors">+1 (555) 123-4567</a>
+              </div>
+              <div className="hidden sm:flex items-center space-x-2">
+                <Link to="/login">
+                  <Button variant="ghost" className="text-slate-900 hover:bg-slate-100 text-sm">Login</Button>
+                </Link>
+                <Link to="/signup">
+                  <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 sm:px-6 text-sm">
+                    Get Started
+                  </Button>
+                </Link>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="md:hidden flex items-center justify-center"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle mobile menu"
+              >
+                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
             </div>
           </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden py-4 border-t border-slate-200 bg-white">
+              <div className="flex flex-col space-y-4">
+                <Link to="/" className="font-medium text-sm text-slate-900 border-b-2 border-blue-600 pb-1" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+                <Link to="/business" className="font-medium text-sm text-slate-600 hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Features</Link>
+                <Link to="/about" className="font-medium text-sm text-slate-600 hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+                <Link to="/pricing" className="font-medium text-sm text-slate-600 hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Pricing</Link>
+                <Link to="/insights" className="font-medium text-sm text-slate-600 hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Insights</Link>
+                <div className="flex flex-col space-y-2 pt-4 border-t border-slate-200">
+                  <div className="flex flex-col space-y-2 text-sm text-slate-600">
+                    <a href="mailto:support@dagala.com" className="hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>support@dagala.com</a>
+                    <a href="tel:+15551234567" className="hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>+1 (555) 123-4567</a>
+                  </div>
+                  <div className="flex flex-col space-y-2 pt-2">
+                    <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Button variant="ghost" className="w-full text-slate-900 hover:bg-slate-100 justify-start">Login</Button>
+                    </Link>
+                    <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
+                        Get Started
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
-      {/* Hero Section - 90% Viewport */}
-      <section className="h-[90vh] flex items-center px-4 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 relative overflow-hidden">
+      {/* Hero Section */}
+      <section className="pt-8 sm:pt-12 lg:pt-16 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 relative overflow-hidden">
         {/* Subtle Background Pattern */}
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] bg-blue-600 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-[250px] h-[250px] sm:w-[500px] sm:h-[500px] bg-purple-600 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto w-full relative z-10 py-20">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start lg:items-center">
             {/* Left Side - Headline & CTA */}
-            <div className="space-y-8">
-              <div className="space-y-6">
+            <div className="space-y-6 sm:space-y-8 text-center lg:text-left">
+              <div className="space-y-4 sm:space-y-6">
                 <div className="inline-block">
-                  <Badge className="bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border-blue-200 px-4 py-2 text-sm font-semibold">
+                  <Badge className="bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border-blue-200 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold">
                     Enterprise Global Trade Platform
                   </Badge>
                 </div>
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 leading-tight tracking-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 leading-tight tracking-tight">
                   Automate Global Trade
                   <br />
                   <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                     Compliance & Analytics
                   </span>
                 </h1>
-                <p className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-2xl">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                   AI-powered enterprise platform for Shopify merchants. Automate HS code classification, generate export documentation, calculate landed costs, and ensure compliance across 50+ countries.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link to="/signup">
-                  <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-6 text-lg font-semibold h-auto group shadow-lg hover:shadow-xl transition-all">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4 justify-center lg:justify-start">
+                <Link to="/signup" className="w-full sm:w-auto">
+                  <Button className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 sm:px-10 py-4 sm:py-6 text-base sm:text-lg font-semibold h-auto group shadow-lg hover:shadow-xl transition-all">
                     Start Free Trial
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
-                <Link to="/business">
-                  <Button variant="outline" className="border-2 border-slate-300 text-slate-900 hover:bg-slate-50 hover:border-slate-400 px-10 py-6 text-lg font-semibold h-auto">
+                <Link to="/business" className="w-full sm:w-auto">
+                  <Button variant="outline" className="w-full sm:w-auto border-2 border-slate-300 text-slate-900 hover:bg-slate-50 hover:border-slate-400 px-6 sm:px-10 py-4 sm:py-6 text-base sm:text-lg font-semibold h-auto">
                     View Features
                   </Button>
                 </Link>
               </div>
 
               {/* Trust Indicators */}
-              <div className="flex flex-wrap items-center gap-8 pt-6 border-t border-slate-200">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 lg:gap-8 pt-4 sm:pt-6 border-t border-slate-200">
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
-                  <span className="text-sm font-medium text-slate-700">500+ Active Stores</span>
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+                  <span className="text-xs sm:text-sm font-medium text-slate-700">500+ Active Stores</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
-                  <span className="text-sm font-medium text-slate-700">80% Time Reduction</span>
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+                  <span className="text-xs sm:text-sm font-medium text-slate-700">80% Time Reduction</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
-                  <span className="text-sm font-medium text-slate-700">50+ Countries</span>
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+                  <span className="text-xs sm:text-sm font-medium text-slate-700">50+ Countries</span>
                 </div>
               </div>
             </div>
 
             {/* Right Side - Professional Dashboard Preview */}
-            <div className="relative">
+            <div className="relative mt-8 lg:mt-0 w-full max-w-lg mx-auto lg:max-w-none">
               <Card 
-                className="border-0 shadow-2xl bg-white overflow-hidden cursor-pointer hover:shadow-3xl transition-all duration-300 group"
+                className="border-0 shadow-2xl bg-white overflow-visible cursor-pointer hover:shadow-3xl transition-all duration-300 group w-full"
                 onClick={() => setIsVideoOpen(true)}
               >
-                <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b border-slate-200 px-6 py-4">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b border-slate-200 px-4 sm:px-6 py-3 sm:py-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600"></div>
-                      <CardTitle className="text-sm font-bold text-slate-900">Platform Analytics</CardTitle>
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex-shrink-0"></div>
+                      <CardTitle className="text-xs sm:text-sm font-bold text-slate-900">Platform Analytics</CardTitle>
                     </div>
-                    <Badge className="bg-green-100 text-green-800 border-0 text-xs font-semibold px-2.5 py-1">
+                    <Badge className="bg-green-100 text-green-800 border-0 text-xs font-semibold px-2 sm:px-2.5 py-0.5 sm:py-1 flex-shrink-0">
                       Live
                     </Badge>
                   </div>
                 </CardHeader>
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
-                  <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Play className="h-10 w-10 text-blue-600 ml-1" fill="currentColor" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none z-10 rounded-lg">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Play className="h-8 w-8 sm:h-10 sm:w-10 text-blue-600 ml-1" fill="currentColor" />
                   </div>
                 </div>
-                <CardContent className="p-6 space-y-6">
+                <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6 relative z-0">
                   {/* Key Metrics Grid */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-5 border border-blue-100">
-                      <div className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">Products Processed</div>
-                      <div className="text-3xl font-bold text-slate-900 mb-1">12.6K</div>
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-3 sm:p-5 border border-blue-100">
+                      <div className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1 sm:mb-2">Products Processed</div>
+                      <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">12.6K</div>
                       <div className="text-xs font-semibold text-blue-600">+18% this week</div>
                     </div>
-                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-5 border border-blue-100">
-                      <div className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">HS Code Accuracy</div>
-                      <div className="text-3xl font-bold text-slate-900 mb-1">95%</div>
+                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-3 sm:p-5 border border-blue-100">
+                      <div className="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1 sm:mb-2">HS Code Accuracy</div>
+                      <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">95%</div>
                       <div className="text-xs font-semibold text-blue-600">AI-powered</div>
                     </div>
                   </div>
 
                   {/* Chart Section */}
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     <div className="flex items-center justify-between">
-                      <div className="text-sm font-bold text-slate-900">Compliance Score Trend</div>
+                      <div className="text-xs sm:text-sm font-bold text-slate-900">Compliance Score Trend</div>
                       <div className="text-xs text-slate-600 font-medium">Last 4 Quarters</div>
                     </div>
-                    <ChartContainer config={chartConfig} className="h-36">
-                      <BarChart data={complianceScoreData}>
-                        <Bar dataKey="value" fill="#3b82f6" radius={4} />
-                      </BarChart>
-                    </ChartContainer>
+                    <div className="w-full overflow-hidden">
+                      <ChartContainer config={chartConfig} className="h-28 sm:h-36 w-full">
+                        <BarChart data={complianceScoreData} width={undefined} height={undefined}>
+                          <Bar dataKey="value" fill="#3b82f6" radius={4} />
+                        </BarChart>
+                      </ChartContainer>
+                    </div>
                     <div className="flex justify-between text-xs text-slate-600 font-semibold">
                       <span>Q1: 78%</span>
                       <span>Q2: 85%</span>
@@ -262,19 +305,19 @@ const Index = () => {
                   </div>
 
                   {/* Stats Footer */}
-                  <div className="flex items-center justify-between pt-4 border-t border-slate-200">
+                  <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-slate-200">
                     <div className="text-center flex-1">
-                      <div className="text-xl font-bold text-slate-900">500+</div>
+                      <div className="text-lg sm:text-xl font-bold text-slate-900">500+</div>
                       <div className="text-xs text-slate-600 font-semibold uppercase tracking-wide">Stores</div>
                     </div>
-                    <div className="w-px h-10 bg-slate-200"></div>
+                    <div className="w-px h-8 sm:h-10 bg-slate-200"></div>
                     <div className="text-center flex-1">
-                      <div className="text-xl font-bold text-slate-900">50+</div>
+                      <div className="text-lg sm:text-xl font-bold text-slate-900">50+</div>
                       <div className="text-xs text-slate-600 font-semibold uppercase tracking-wide">Countries</div>
                     </div>
-                    <div className="w-px h-10 bg-slate-200"></div>
+                    <div className="w-px h-8 sm:h-10 bg-slate-200"></div>
                     <div className="text-center flex-1">
-                      <div className="text-xl font-bold text-slate-900">80%</div>
+                      <div className="text-lg sm:text-xl font-bold text-slate-900">80%</div>
                       <div className="text-xs text-slate-600 font-semibold uppercase tracking-wide">Efficiency</div>
                     </div>
                   </div>
@@ -304,23 +347,23 @@ const Index = () => {
       </Dialog>
 
       {/* How It Works Section */}
-      <section className="py-24 px-4 bg-slate-50 border-t border-slate-200">
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 bg-slate-50 border-t border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="inline-block mb-4">
-              <Badge className="bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border-blue-200 px-4 py-1.5 text-sm font-semibold">
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+            <div className="inline-block mb-3 sm:mb-4">
+              <Badge className="bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border-blue-200 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold">
                 How It Works
               </Badge>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4">
               Streamline Your Global Trade Operations
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto px-4">
               Connect your Shopify store and automate compliance in minutes. Our AI-powered platform handles everything from HS code classification to export documentation.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12 lg:mb-16">
             {/* Step 1 */}
             <Card className="border-0 shadow-lg bg-white text-center">
               <CardHeader>
@@ -374,7 +417,7 @@ const Index = () => {
           </div>
 
           {/* Key Benefits Grid */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
             <Card className="border-0 shadow-lg bg-white">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
@@ -443,18 +486,18 @@ const Index = () => {
       </section>
 
       {/* Core Features Section */}
-      <section className="py-24 px-4 bg-white border-t border-slate-200">
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 bg-white border-t border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4">
               Everything You Need for Global Trade
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto px-4">
               Comprehensive tools to automate compliance, streamline documentation, and scale your international commerce operations
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {coreFeatures.map((feature, index) => (
               <Card key={index} className="border-0 shadow-lg bg-white hover:shadow-xl transition-all duration-300">
                 <CardHeader className="pb-4">
@@ -477,18 +520,18 @@ const Index = () => {
       </section>
 
       {/* Platform Benefits Section */}
-      <section className="py-24 px-4 bg-slate-50 border-t border-slate-200">
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 bg-slate-50 border-t border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4">
               Why Shopify Merchants Choose Us
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto px-4">
               Built specifically for Shopify stores. Integrate seamlessly and start automating your global trade operations today.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {platformBenefits.map((benefit, index) => (
               <Card key={index} className="border-0 shadow-lg bg-white hover:shadow-xl hover:scale-105 transition-all duration-300">
                 <CardHeader className="text-center p-6">
@@ -509,35 +552,35 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-4 bg-white border-t border-slate-200">
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 bg-white border-t border-slate-200">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-0 shadow-lg rounded-lg p-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-0 shadow-lg rounded-lg p-6 sm:p-8 lg:p-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4">
               Ready to Automate Your Global Trade?
             </h2>
-            <p className="text-lg text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-600 mb-6 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
               Join 500+ Shopify merchants already saving time and reducing compliance risk. Start your 14-day free trial today.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/signup">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-6 h-auto text-base shadow-md hover:shadow-lg transition-all">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Link to="/signup" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-6 sm:px-8 py-4 sm:py-6 h-auto text-sm sm:text-base shadow-md hover:shadow-lg transition-all">
                   Start Free Trial
                 </Button>
               </Link>
-              <Link to="/contact">
-                <Button size="lg" variant="outline" className="border-2 border-slate-300 text-slate-900 hover:bg-white hover:border-slate-400 font-semibold px-8 py-6 h-auto text-base">
+              <Link to="/contact" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-slate-300 text-slate-900 hover:bg-white hover:border-slate-400 font-semibold px-6 sm:px-8 py-4 sm:py-6 h-auto text-sm sm:text-base">
                   Contact Sales
                 </Button>
               </Link>
             </div>
-            <div className="mt-6 flex items-center justify-center gap-6 text-sm text-slate-600">
+            <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-slate-600">
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-600" />
+                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
                 <span>No credit card required</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-600" />
+                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
                 <span>Cancel anytime</span>
               </div>
             </div>

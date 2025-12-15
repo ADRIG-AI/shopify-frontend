@@ -7,10 +7,11 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Footer from "@/components/Footer";
 import Logo from "@/components/Logo";
-import { Check, Star, Crown, Zap } from "lucide-react";
+import { Check, Star, Crown, Zap, Menu, X } from "lucide-react";
 
 const Pricing = () => {
     const [billingCycle, setBillingCycle] = useState("monthly");
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const plans = [
         {
@@ -82,36 +83,74 @@ const Pricing = () => {
                             <Link to="/pricing" className="font-medium text-sm text-slate-900 border-b-2 border-blue-600 pb-1">Pricing</Link>
                         </div>
 
-                        <div className="flex items-center space-x-6">
+                        <div className="flex items-center space-x-4 sm:space-x-6">
                             <div className="hidden lg:flex items-center space-x-4 text-sm text-slate-600">
                                 <a href="mailto:support@dagala.com" className="hover:text-slate-900 transition-colors">support@dagala.com</a>
                                 <a href="tel:+15551234567" className="hover:text-slate-900 transition-colors">+1 (555) 123-4567</a>
                             </div>
-                            <Link to="/login">
-                                <Button variant="ghost" className="text-slate-900 hover:bg-slate-100">Login</Button>
-                            </Link>
-                            <Link to="/signup">
-                                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6">
-                                    Get Started
-                                </Button>
-                            </Link>
+                            <div className="hidden sm:flex items-center space-x-2">
+                                <Link to="/login">
+                                    <Button variant="ghost" className="text-slate-900 hover:bg-slate-100 text-sm">Login</Button>
+                                </Link>
+                                <Link to="/signup">
+                                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 sm:px-6 text-sm">
+                                        Get Started
+                                    </Button>
+                                </Link>
+                            </div>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="md:hidden"
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            >
+                                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                            </Button>
                         </div>
                     </div>
+
+                    {/* Mobile Menu */}
+                    {isMobileMenuOpen && (
+                        <div className="md:hidden py-4 border-t border-slate-200">
+                            <div className="flex flex-col space-y-4">
+                                <Link to="/" className="font-medium text-sm text-slate-600 hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+                                <Link to="/business" className="font-medium text-sm text-slate-600 hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Features</Link>
+                                <Link to="/about" className="font-medium text-sm text-slate-600 hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+                                <Link to="/pricing" className="font-medium text-sm text-slate-900 border-b-2 border-blue-600 pb-1" onClick={() => setIsMobileMenuOpen(false)}>Pricing</Link>
+                                <div className="flex flex-col space-y-2 pt-4 border-t border-slate-200">
+                                    <div className="flex flex-col space-y-2 text-sm text-slate-600">
+                                        <a href="mailto:support@dagala.com" className="hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>support@dagala.com</a>
+                                        <a href="tel:+15551234567" className="hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>+1 (555) 123-4567</a>
+                                    </div>
+                                    <div className="flex flex-col space-y-2 pt-2">
+                                        <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                                            <Button variant="ghost" className="w-full text-slate-900 hover:bg-slate-100 justify-start">Login</Button>
+                                        </Link>
+                                        <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
+                                            <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
+                                                Get Started
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </nav>
 
             {/* Hero Section */}
-            <section className="py-20 px-4 bg-white">
+            <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-white">
                 <div className="max-w-7xl mx-auto text-center">
-                    <div className="inline-block mb-6">
-                        <Badge className="bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border-blue-200 px-4 py-1.5 text-sm font-medium">
+                    <div className="inline-block mb-4 sm:mb-6">
+                        <Badge className="bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border-blue-200 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium">
                             Pricing
                         </Badge>
                     </div>
-                    <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 sm:mb-6">
                         Simple, Transparent Pricing
                     </h1>
-                    <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
+                    <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto mb-6 sm:mb-10">
                         Choose the plan that fits your business needs. All plans include a 14-day free trial.
                     </p>
                 </div>
@@ -143,9 +182,9 @@ const Pricing = () => {
             </section>
 
             {/* Pricing Cards - Matching Billing UI */}
-            <section className="py-20 px-4 bg-slate-50">
+            <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-slate-50">
                 <div className="max-w-7xl mx-auto">
-                    <div className="grid md:grid-cols-3 gap-6">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                         {plans.map((plan) => {
                             const price = plan.price[billingCycle as keyof typeof plan.price];
 
@@ -153,7 +192,7 @@ const Pricing = () => {
                                 <Card
                                     key={plan.id}
                                     className={`border-0 shadow-lg relative ${
-                                        plan.popular ? "border-2 border-blue-500 scale-105" : ""
+                                        plan.popular ? "border-2 border-blue-500 lg:scale-105" : ""
                                     }`}
                                 >
                                     {plan.popular && (
@@ -215,18 +254,18 @@ const Pricing = () => {
             </section>
 
             {/* Features Section */}
-            <section className="py-20 px-4 bg-white border-t border-slate-200">
+            <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-white border-t border-slate-200">
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                    <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4">
                             Why Choose Dagala Analytics?
                         </h2>
-                        <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed px-4">
                             All plans include our core features and benefits
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         <Card className="border-0 shadow-lg">
                             <CardHeader className="text-center p-6">
                                 <div className="mx-auto mb-4 w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
@@ -287,23 +326,23 @@ const Pricing = () => {
             </section>
 
             {/* CTA Section */}
-            <section className="py-24 px-4 bg-gradient-to-r from-blue-50 to-purple-50 border-t border-slate-200">
+            <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 bg-gradient-to-r from-blue-50 to-purple-50 border-t border-slate-200">
                 <div className="max-w-4xl mx-auto text-center">
-                    <div className="bg-white border-0 shadow-lg rounded-lg p-12">
-                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                    <div className="bg-white border-0 shadow-lg rounded-lg p-6 sm:p-8 lg:p-12">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4">
                             Need a Custom Plan?
                         </h2>
-                        <p className="text-lg text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-base sm:text-lg text-slate-600 mb-6 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
                             Contact our sales team to discuss enterprise solutions tailored to your specific needs.
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link to="/contact">
-                                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium px-8 py-6 h-auto text-base">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                            <Link to="/contact" className="w-full sm:w-auto">
+                                <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium px-6 sm:px-8 py-4 sm:py-6 h-auto text-sm sm:text-base">
                                     Contact Sales
                                 </Button>
                             </Link>
-                            <Link to="/signup">
-                                <Button size="lg" variant="outline" className="border-2 border-slate-300 text-slate-900 hover:bg-slate-50 font-medium px-8 py-6 h-auto text-base">
+                            <Link to="/signup" className="w-full sm:w-auto">
+                                <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-slate-300 text-slate-900 hover:bg-slate-50 font-medium px-6 sm:px-8 py-4 sm:py-6 h-auto text-sm sm:text-base">
                                     Start Free Trial
                                 </Button>
                             </Link>
