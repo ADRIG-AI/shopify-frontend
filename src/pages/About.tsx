@@ -1,23 +1,13 @@
-import { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Building2, Target, Lightbulb, Globe, ArrowRight, CheckCircle, Users, TrendingUp, BarChart3, Shield, Award, Heart } from "lucide-react";
-import { StarsBackground } from "@/components/ui/stars-background";
+import Footer from "@/components/Footer";
+import Logo from "@/components/Logo";
+import { Target, Heart, Lightbulb, Users, CheckCircle, Package, Globe, Clock } from "lucide-react";
 
 const About = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
     const values = [
         {
             icon: Target,
@@ -41,100 +31,38 @@ const About = () => {
         }
     ];
 
-    const team = [
-        {
-            name: "Sarah Johnson",
-            role: "CEO & Founder",
-            description: "15+ years in analytics and business strategy"
-        },
-        {
-            name: "Michael Chen",
-            role: "CTO",
-            description: "Expert in AI and machine learning technologies"
-        },
-        {
-            name: "Emily Rodriguez",
-            role: "Head of Analytics",
-            description: "Specialist in data science and business intelligence"
-        },
-        {
-            name: "David Kim",
-            role: "Head of Strategy",
-            description: "Former McKinsey consultant with global experience"
-        }
-    ];
-
     const stats = [
-        { number: "500+", label: "Businesses Served" },
-        { number: "95%", label: "Client Satisfaction" },
-        { number: "80%", label: "Growth Improvement" },
-        { number: "50+", label: "Countries Covered" }
+        { number: "500+", label: "Shopify Stores", icon: Package },
+        { number: "95%", label: "HS Code Accuracy", icon: CheckCircle },
+        { number: "80%", label: "Time Saved", icon: Clock },
+        { number: "50+", label: "Countries Supported", icon: Globe }
     ];
 
     return (
-        <div className="min-h-screen bg-dagala-white">
+        <div className="min-h-screen bg-slate-50">
             {/* Navigation */}
-            <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                ? 'bg-dagala-white/95 backdrop-blur-md border-b border-dagala-light shadow-lg'
-                : 'bg-transparent'
-                }`}>
+            <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-20">
-                        <Link to="/" className="flex items-center space-x-3">
-                            <div className="relative">
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center relative transition-colors duration-300 ${isScrolled ? 'bg-dagala-black' : 'bg-white/20 backdrop-blur-sm'
-                                    }`}>
-                                    <div className={`w-6 h-6 border-2 rounded-full transition-colors duration-300 ${isScrolled ? 'border-dagala-white' : 'border-white'
-                                        }`}></div>
-                                    <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full transition-colors duration-300 ${isScrolled ? 'bg-dagala-white' : 'bg-white'
-                                        }`}></div>
-                                </div>
-                            </div>
-                            <div className="flex flex-col">
-                                <span className={`text-2xl font-display transition-colors duration-300 ${isScrolled ? 'text-dagala-black' : 'text-white'
-                                    }`}>
-                                    Dagala
-                                </span>
-                                <span className={`text-xs font-body-medium -mt-1 tracking-wider transition-colors duration-300 ${isScrolled ? 'text-dagala-medium' : 'text-white/80'
-                                    }`}>
-                                    ANALYTICS
-                                </span>
-                            </div>
-                        </Link>
+                    <div className="flex justify-between items-center h-16">
+                        <Logo size="nav" linkTo="/" />
 
-                        <div className="hidden md:flex space-x-12">
-                            <Link to="/business" className={`font-body-medium transition-colors text-sm tracking-wide ${isScrolled
-                                ? 'text-dagala-medium hover:text-dagala-black'
-                                : 'text-white/80 hover:text-white'
-                                }`}>BUSINESS</Link>
-                            <Link to="/about" className={`font-body-medium transition-colors text-sm tracking-wide ${isScrolled
-                                ? 'text-dagala-black border-b-2 border-dagala-black'
-                                : 'text-white/80 hover:text-white'
-                                }`}>ABOUT</Link>
-                            <Link to="/insights" className={`font-body-medium transition-colors text-sm tracking-wide ${isScrolled
-                                ? 'text-dagala-medium hover:text-dagala-black'
-                                : 'text-white/80 hover:text-white'
-                                }`}>INSIGHTS</Link>
-                            <Link to="/pricing" className={`font-body-medium transition-colors text-sm tracking-wide ${isScrolled
-                                ? 'text-dagala-medium hover:text-dagala-black'
-                                : 'text-white/80 hover:text-white'
-                                }`}>PRICING</Link>
+                        <div className="hidden md:flex items-center space-x-8">
+                            <Link to="/" className="font-medium text-sm text-slate-600 hover:text-slate-900 transition-colors">Home</Link>
+                            <Link to="/business" className="font-medium text-sm text-slate-600 hover:text-slate-900 transition-colors">Features</Link>
+                            <Link to="/about" className="font-medium text-sm text-slate-900 border-b-2 border-blue-600 pb-1">About</Link>
+                            <Link to="/pricing" className="font-medium text-sm text-slate-600 hover:text-slate-900 transition-colors">Pricing</Link>
                         </div>
 
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-6">
+                            <div className="hidden lg:flex items-center space-x-4 text-sm text-slate-600">
+                                <a href="mailto:support@dagala.com" className="hover:text-slate-900 transition-colors">support@dagala.com</a>
+                                <a href="tel:+15551234567" className="hover:text-slate-900 transition-colors">+1 (555) 123-4567</a>
+                            </div>
                             <Link to="/login">
-                                <Button variant="ghost" className={`font-body-medium transition-colors ${isScrolled
-                                    ? 'text-dagala-medium hover:text-dagala-black'
-                                    : 'text-white/80 hover:text-white'
-                                    }`}>Sign In</Button>
+                                <Button variant="ghost" className="text-slate-900 hover:bg-slate-100">Login</Button>
                             </Link>
-                            <Link to="/contact">
-                                <Button className={`font-body-bold px-6 py-2 transition-all duration-300 ${isScrolled
-                                    ? 'bg-dagala-black hover:bg-dagala-dark text-dagala-white'
-                                    : 'bg-white/20 hover:bg-white/30 text-white border border-white/30'
-                                    }`}>
-                                    CONTACT
-                                </Button>
+                            <Link to="/signup">
+                                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6">Get Started</Button>
                             </Link>
                         </div>
                     </div>
@@ -142,107 +70,112 @@ const About = () => {
             </nav>
 
             {/* Hero Section */}
-            <section className="h-screen w-full overflow-hidden relative">
-                <StarsBackground
-                    className="h-full w-full"
-                    starColor="#ffffff"
-                    speed={20}
-                    factor={0.05}
-                >
-                    <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/60"></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
-
-                    <div className="relative z-10 h-full flex items-center justify-center">
-                        <div className="relative mx-auto flex max-w-7xl flex-col items-center justify-center px-4 py-10 md:py-20">
-                            <h1 className="relative z-10 mx-auto max-w-4xl text-center text-3xl font-display text-white md:text-5xl lg:text-7xl mb-6">
-                                About Dagala Analytics
-                            </h1>
-                            <p className="relative z-10 mx-auto max-w-2xl py-4 text-center text-lg font-body-medium text-white/90 md:text-xl lg:text-2xl">
-                                Empowering businesses with data-driven insights and strategic guidance
-                            </p>
-                        </div>
+            <section className="py-20 px-4 bg-white">
+                <div className="max-w-7xl mx-auto text-center">
+                    <div className="inline-block mb-6">
+                        <Badge className="bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border-blue-200 px-4 py-1.5 text-sm font-medium">
+                            About Us
+                        </Badge>
                     </div>
-                </StarsBackground>
+                    <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
+                        Empowering Global Trade
+                        <br />
+                        <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Through Innovation</span>
+                    </h1>
+                    <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-10">
+                        We're building the future of global trade compliance. Our AI-powered platform helps Shopify merchants automate compliance, reduce errors, and scale internationally with confidence.
+                    </p>
+                </div>
             </section>
 
-            {/* Our Story Section */}
-            <section className="py-20 px-4 bg-dagala-white">
-                <div className="max-w-6xl mx-auto">
+            {/* Stats Section */}
+            <section className="py-16 px-4 bg-slate-50 border-t border-slate-200">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {stats.map((stat, index) => (
+                            <Card key={index} className="border-0 shadow-lg bg-white text-center">
+                                <CardContent className="p-6">
+                                    <div className="flex justify-center mb-3">
+                                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-md flex items-center justify-center">
+                                            <stat.icon className="h-6 w-6 text-white" />
+                                        </div>
+                                    </div>
+                                    <div className="text-3xl font-bold text-slate-900 mb-1">{stat.number}</div>
+                                    <div className="text-sm text-slate-600">{stat.label}</div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Mission Section */}
+            <section className="py-24 px-4 bg-white">
+                <div className="max-w-7xl mx-auto">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-display text-dagala-black mb-6">
-                                Our Story
+                            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+                                Our Mission
                             </h2>
-                            <p className="text-lg font-body text-dagala-medium leading-relaxed mb-6">
-                                Founded in 2020, Dagala Analytics emerged from a vision to democratize advanced analytics for businesses of all sizes. We recognized that many companies were struggling to harness the power of their data due to complex tools and lack of expertise.
+                            <p className="text-lg text-slate-600 mb-6 leading-relaxed">
+                                To simplify global trade compliance for Shopify merchants worldwide. We believe that every business, regardless of size, should have access to enterprise-grade compliance tools that enable seamless international expansion.
                             </p>
-                            <p className="text-lg font-body text-dagala-medium leading-relaxed mb-6">
-                                Our mission is to bridge this gap by providing intuitive, AI-powered analytics solutions that transform raw data into actionable insights. We believe that every business, regardless of size, should have access to enterprise-grade analytics capabilities.
+                            <p className="text-lg text-slate-600 leading-relaxed">
+                                Through AI-powered automation and real-time analytics, we're eliminating the barriers that prevent businesses from scaling globally. Our platform handles the complexity so you can focus on what matters most—growing your business.
                             </p>
-                            <div className="flex items-center space-x-4">
-                                <Link to="/contact">
-                                    <Button className="bg-dagala-black hover:bg-dagala-dark text-dagala-white">
-                                        Learn More
-                                        <ArrowRight className="ml-2 h-4 w-4" />
-                                    </Button>
-                                </Link>
-                                <Link to="/business">
-                                    <Button variant="outline" className="border-2 border-dagala-black text-dagala-black hover:bg-dagala-black hover:text-dagala-white">
-                                        Our Services
-                                    </Button>
-                                </Link>
-                            </div>
                         </div>
-                        <div className="lg:order-first">
-                            <div className="bg-gradient-to-br from-dagala-light/30 to-dagala-white p-8 rounded-2xl">
-                                <div className="grid grid-cols-2 gap-6">
-                                    <div className="text-center">
-                                        <div className="text-3xl font-display text-dagala-black mb-2">2020</div>
-                                        <div className="text-sm font-body text-dagala-medium">Founded</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className="text-3xl font-display text-dagala-black mb-2">500+</div>
-                                        <div className="text-sm font-body text-dagala-medium">Clients</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className="text-3xl font-display text-dagala-black mb-2">50+</div>
-                                        <div className="text-sm font-body text-dagala-medium">Countries</div>
-                                    </div>
-                                    <div className="text-center">
-                                        <div className="text-3xl font-display text-dagala-black mb-2">95%</div>
-                                        <div className="text-sm font-body text-dagala-medium">Satisfaction</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <Card className="border-0 shadow-lg bg-gradient-to-r from-blue-50 to-purple-50">
+                            <CardContent className="p-8">
+                                <h3 className="text-2xl font-bold text-slate-900 mb-6">Why We Built This</h3>
+                                <ul className="space-y-4">
+                                    <li className="flex items-start gap-3">
+                                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                                        <span className="text-slate-700 font-medium">Manual HS code classification is time-consuming and error-prone</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                                        <span className="text-slate-700 font-medium">Export documentation generation is repetitive and tedious</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                                        <span className="text-slate-700 font-medium">Landed cost calculations are complex and vary by country</span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                                        <span className="text-slate-700 font-medium">Compliance requirements change frequently across markets</span>
+                                    </li>
+                                </ul>
+                            </CardContent>
+                        </Card>
                     </div>
                 </div>
             </section>
 
             {/* Values Section */}
-            <section className="py-20 px-4 bg-dagala-light/10">
+            <section className="py-24 px-4 bg-slate-50 border-t border-slate-200">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-display text-dagala-black mb-4">
+                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
                             Our Values
                         </h2>
-                        <p className="text-lg font-body text-dagala-medium max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-lg text-slate-600 max-w-3xl mx-auto">
                             The principles that guide everything we do
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {values.map((value, index) => (
-                            <Card key={index} className="group border-2 border-dagala-light hover:border-dagala-black transition-all duration-500 hover:-translate-y-2 bg-dagala-white hover:shadow-2xl">
-                                <CardHeader className="text-center p-6">
-                                    <div className="mx-auto mb-4 w-12 h-12 bg-dagala-black rounded-xl flex items-center justify-center group-hover:bg-dagala-dark transition-colors duration-300">
-                                        <value.icon className="h-6 w-6 text-dagala-white" />
+                            <Card key={index} className="border-0 shadow-lg bg-white text-center">
+                                <CardHeader>
+                                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-md flex items-center justify-center mx-auto mb-4">
+                                        <value.icon className="h-6 w-6 text-white" />
                                     </div>
-                                    <CardTitle className="text-lg font-display text-dagala-black mb-3">{value.title}</CardTitle>
+                                    <CardTitle className="text-xl font-bold text-slate-900 mb-2">
+                                        {value.title}
+                                    </CardTitle>
                                 </CardHeader>
-                                <CardContent className="px-6 pb-6">
-                                    <CardDescription className="text-sm font-body text-dagala-medium leading-relaxed">
+                                <CardContent>
+                                    <CardDescription className="text-slate-600 leading-relaxed">
                                         {value.description}
                                     </CardDescription>
                                 </CardContent>
@@ -252,160 +185,33 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Team Section */}
-            <section className="py-20 px-4 bg-dagala-white">
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-display text-dagala-black mb-4">
-                            Meet Our Team
-                        </h2>
-                        <p className="text-lg font-body text-dagala-medium max-w-3xl mx-auto leading-relaxed">
-                            The experts behind Dagala Analytics
-                        </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {team.map((member, index) => (
-                            <Card key={index} className="group border-2 border-dagala-light hover:border-dagala-black transition-all duration-500 hover:-translate-y-2 bg-dagala-white hover:shadow-2xl">
-                                <CardHeader className="text-center p-6">
-                                    <div className="mx-auto mb-4 w-16 h-16 bg-gradient-to-br from-dagala-black to-dagala-dark rounded-full flex items-center justify-center">
-                                        <span className="text-2xl font-display text-dagala-white">
-                                            {member.name.split(' ').map(n => n[0]).join('')}
-                                        </span>
-                                    </div>
-                                    <CardTitle className="text-lg font-display text-dagala-black mb-2">{member.name}</CardTitle>
-                                    <Badge variant="secondary" className="bg-dagala-light text-dagala-black">{member.role}</Badge>
-                                </CardHeader>
-                                <CardContent className="px-6 pb-6">
-                                    <CardDescription className="text-sm font-body text-dagala-medium leading-relaxed text-center">
-                                        {member.description}
-                                    </CardDescription>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Stats Section */}
-            <section className="py-16 px-4 bg-dagala-black relative overflow-hidden">
-                <StarsBackground
-                    className="absolute inset-0"
-                    starColor="#ffffff"
-                    speed={20}
-                    factor={0.05}
-                >
-                    <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/80"></div>
-                </StarsBackground>
-
-                <div className="relative z-10 max-w-5xl mx-auto text-center">
-                    <h2 className="text-2xl md:text-3xl font-display text-dagala-white mb-4">
-                        Our Impact
-                    </h2>
-                    <div className="grid md:grid-cols-4 gap-6">
-                        {stats.map((stat, index) => (
-                            <div key={index} className="text-center group">
-                                <div className="text-2xl md:text-3xl font-display text-dagala-white mb-1 group-hover:text-dagala-light transition-colors duration-300">{stat.number}</div>
-                                <div className="text-sm font-body-medium text-dagala-light">{stat.label}</div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* CTA Section */}
-            <section className="py-16 px-4 bg-gradient-to-br from-dagala-light/30 to-dagala-white">
-                <div className="max-w-5xl mx-auto text-center">
-                    <h2 className="text-2xl md:text-3xl font-display text-dagala-black mb-4">
-                        Ready to work with us?
-                    </h2>
-                    <p className="text-base font-body text-dagala-medium mb-8 max-w-2xl mx-auto leading-relaxed">
-                        Join hundreds of businesses that trust Dagala Analytics for their data-driven success.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link to="/contact">
-                            <Button size="lg" className="bg-dagala-black hover:bg-dagala-dark text-dagala-white font-body-bold text-sm px-6 py-3 h-auto">
-                                Get Started
-                                <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                        </Link>
-                        <Link to="/pricing">
-                            <Button size="lg" variant="outline" className="border-2 border-dagala-black text-dagala-black hover:bg-dagala-black hover:text-dagala-white font-body-bold text-sm px-6 py-3 h-auto">
-                                View Pricing
-                            </Button>
-                        </Link>
+            <section className="py-24 px-4 bg-white border-t border-slate-200">
+                <div className="max-w-4xl mx-auto text-center">
+                    <div className="bg-slate-50 border border-slate-200 rounded-lg p-12">
+                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                            Join Us on This Journey
+                        </h2>
+                        <p className="text-lg text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                            Be part of the future of global trade. Start automating your compliance operations today.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Link to="/signup">
+                                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium px-8 py-6 h-auto text-base">
+                                    Start Free Trial
+                                </Button>
+                            </Link>
+                            <Link to="/contact">
+                                <Button size="lg" variant="outline" className="border-2 border-slate-300 text-slate-900 hover:bg-slate-50 font-medium px-8 py-6 h-auto text-base">
+                                    Contact Us
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Footer */}
-            <footer className="bg-dagala-black py-20 px-4 relative overflow-hidden">
-                <StarsBackground
-                    className="absolute inset-0"
-                    starColor="#ffffff"
-                    speed={20}
-                    factor={0.05}
-                >
-                    <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/80"></div>
-                </StarsBackground>
-
-                <div className="relative z-10 max-w-6xl mx-auto">
-                    <div className="grid md:grid-cols-4 gap-8">
-                        <div className="md:col-span-1">
-                            <div className="flex items-center space-x-3 mb-6">
-                                <div className="relative">
-                                    <div className="w-10 h-10 rounded-full flex items-center justify-center relative bg-white/20 backdrop-blur-sm">
-                                        <div className="w-6 h-6 border-2 rounded-full border-white"></div>
-                                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white"></div>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="text-2xl font-display text-white">
-                                        Dagala
-                                    </span>
-                                    <span className="text-xs font-body-medium -mt-1 tracking-wider text-white/80">
-                                        ANALYTICS
-                                    </span>
-                                </div>
-                            </div>
-                            <p className="font-body text-dagala-light leading-relaxed text-sm">
-                                AI-powered Global Trade automation for modern DTC brands.
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4 className="font-body-bold text-dagala-white mb-4 text-sm tracking-wider">PRODUCT</h4>
-                            <div className="space-y-3">
-                                <Link to="/features" className="block font-body text-dagala-light hover:text-dagala-white transition-colors text-sm">Features</Link>
-                                <Link to="/pricing" className="block font-body text-dagala-light hover:text-dagala-white transition-colors text-sm">Pricing</Link>
-                                <Link to="/integrations" className="block font-body text-dagala-light hover:text-dagala-white transition-colors text-sm">Integrations</Link>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h4 className="font-body-bold text-dagala-white mb-4 text-sm tracking-wider">COMPANY</h4>
-                            <div className="space-y-3">
-                                <Link to="/about" className="block font-body text-dagala-light hover:text-dagala-white transition-colors text-sm">About</Link>
-                                <Link to="/careers" className="block font-body text-dagala-light hover:text-dagala-white transition-colors text-sm">Careers</Link>
-                                <Link to="/contact" className="block font-body text-dagala-light hover:text-dagala-white transition-colors text-sm">Contact</Link>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h4 className="font-body-bold text-dagala-white mb-4 text-sm tracking-wider">SUPPORT</h4>
-                            <div className="space-y-3">
-                                <Link to="/help" className="block font-body text-dagala-light hover:text-dagala-white transition-colors text-sm">Help Center</Link>
-                                <Link to="/docs" className="block font-body text-dagala-light hover:text-dagala-white transition-colors text-sm">Documentation</Link>
-                                <Link to="/status" className="block font-body text-dagala-light hover:text-dagala-white transition-colors text-sm">Status</Link>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="mt-12 pt-8 border-t border-dagala-medium text-center">
-                        <p className="font-body text-dagala-light text-sm">&copy; 2025 Dagala Analytics. All rights reserved.</p>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 };

@@ -52,41 +52,42 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Polaris dark mode (if needed) */
+    --background: 32 34 35; /* #202223 */
+    --foreground: 255 255 255; /* #FFFFFF */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 40 42 43; /* Darker surface */
+    --card-foreground: 255 255 255; /* #FFFFFF */
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 40 42 43;
+    --popover-foreground: 255 255 255;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 0 128 96; /* #008060 */
+    --primary-foreground: 255 255 255;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 40 42 43;
+    --secondary-foreground: 255 255 255;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 40 42 43;
+    --muted-foreground: 200 200 200;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 40 42 43;
+    --accent-foreground: 255 255 255;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 215 44 51; /* #D72C0D */
+    --destructive-foreground: 255 255 255;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 60 62 63;
+    --input: 60 62 63;
+    --ring: 0 128 96;
+    --sidebar-background: 32 34 35;
+    --sidebar-foreground: 255 255 255;
+    --sidebar-primary: 0 128 96;
+    --sidebar-primary-foreground: 255 255 255;
+    --sidebar-accent: 40 42 43;
+    --sidebar-accent-foreground: 255 255 255;
+    --sidebar-border: 60 62 63;
+    --sidebar-ring: 0 128 96;
   }
 }
 
@@ -96,8 +97,35 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#F6F6F7] text-[#202223];
+    font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   }
+}
+
+/* Polaris-style shadows */
+.polaris-shadow {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.polaris-card {
+  background: #FFFFFF;
+  border: 1px solid #E1E3E5;
+  border-radius: 8px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Polaris button styles */
+.polaris-button-primary {
+  background: #008060;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.polaris-button-primary:hover {
+  background: #006E52;
 }
 
 /* Infinite Moving Cards Animation */

@@ -24,7 +24,21 @@ export default {
 				body: ['Inter', 'sans-serif'],
 			},
 			colors: {
-				// Dagala Brand Colors
+				// Shopify Polaris Colors
+				'polaris': {
+					'primary': '#008060',
+					'primary-hover': '#006E52',
+					'background': '#F6F6F7',
+					'surface': '#FFFFFF',
+					'text': '#202223',
+					'text-secondary': '#6D7175',
+					'border': '#E1E3E5',
+					'critical': '#D72C0D',
+					'warning': '#F49342',
+					'success': '#008060',
+					'info': '#5C6AC4',
+				},
+				// Legacy Dagala colors (for backward compatibility)
 				'dagala-dark': '#1c1c1c',
 				'dagala-light': '#c9c9c9',
 				'dagala-medium': '#3b3b42',

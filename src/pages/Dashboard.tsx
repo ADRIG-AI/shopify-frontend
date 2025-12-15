@@ -202,34 +202,34 @@ useEffect(() => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="text-center">Loading dashboard...</div>
+      <div className="min-h-screen bg-[#F6F6F7] flex items-center justify-center">
+        <div className="text-center text-[#6D7175]">Loading dashboard...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#F6F6F7] flex items-center justify-center">
         <div className="text-center">
-          <div className="text-red-600 mb-4">{error}</div>
-          <Button onClick={() => window.location.reload()}>Retry</Button>
+          <div className="text-[#D72C0D] mb-4">{error}</div>
+          <Button onClick={() => window.location.reload()} className="bg-[#008060] hover:bg-[#006E52]">Retry</Button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[#F6F6F7]">
       <DashboardNavigation />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Welcome */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">
+          <h1 className="text-3xl font-semibold text-[#202223] mb-2">
             Welcome back, {userName}! 👋
           </h1>
-          <p className="text-slate-600">
+          <p className="text-[#6D7175]">
             Here's what's happening with your compliance automation today.
           </p>
         </div>
@@ -237,33 +237,43 @@ useEffect(() => {
         {/* Stats grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {statsCards.map((stat, index) => (
-            <Card key={index} className="border-0 shadow-lg">
+            <Card key={index} className="polaris-card border border-[#E1E3E5]">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-600 mb-1">{stat.title}</p>
-                    <p className="text-2xl font-bold text-slate-900">
+                    <p className="text-sm text-[#6D7175] mb-1">{stat.title}</p>
+                    <p className="text-2xl font-semibold text-[#202223]">
                       {stat.value}
                     </p>
                     <div className="flex items-center mt-2">
                       {stat.changeType === "increase" ? (
-                        <ArrowUp className="h-4 w-4 text-green-500 mr-1" />
+                        <ArrowUp className="h-4 w-4 text-[#008060] mr-1" />
                       ) : (
-                        <ArrowDown className="h-4 w-4 text-red-500 mr-1" />
+                        <ArrowDown className="h-4 w-4 text-[#D72C0D] mr-1" />
                       )}
                       <span
                         className={`text-sm ${
                           stat.changeType === "increase"
-                            ? "text-green-600"
-                            : "text-red-600"
+                            ? "text-[#008060]"
+                            : "text-[#D72C0D]"
                         }`}
                       >
                         {stat.change}
                       </span>
                     </div>
                   </div>
-                  <div className={`p-3 rounded-full bg-${stat.color}-100`}>
-                    <stat.icon className={`h-6 w-6 text-${stat.color}-600`} />
+                  <div className={`p-3 rounded-md ${
+                    stat.color === "blue" ? "bg-[#E3F2FD]" :
+                    stat.color === "green" ? "bg-[#E8F5E9]" :
+                    stat.color === "orange" ? "bg-[#FFF3E0]" :
+                    "bg-[#FFEBEE]"
+                  }`}>
+                    <stat.icon className={`h-6 w-6 ${
+                      stat.color === "blue" ? "text-[#5C6AC4]" :
+                      stat.color === "green" ? "text-[#008060]" :
+                      stat.color === "orange" ? "text-[#F49342]" :
+                      "text-[#D72C0D]"
+                    }`} />
                   </div>
                 </div>
               </CardContent>
@@ -276,11 +286,11 @@ useEffect(() => {
           {/* Left column */}
           <div className="lg:col-span-2 space-y-8">
             {/* Products overview */}
-            <Card className="border-0 shadow-lg">
+            <Card className="polaris-card border border-[#E1E3E5]">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <Package className="h-5 w-5 mr-2 text-blue-600" />
+                    <Package className="h-5 w-5 mr-2 text-[#008060]" />
                     Your Products ({totalProducts})
                   </div>
                   <Link to="/products">
@@ -296,7 +306,7 @@ useEffect(() => {
               </CardHeader>
               <CardContent>
                 {products.length === 0 ? (
-                  <div className="text-slate-500 text-center py-8">
+                  <div className="text-[#6D7175] text-center py-8">
                     No products found. Sync your Shopify store to get started.
                   </div>
                 ) : (
@@ -304,10 +314,10 @@ useEffect(() => {
                     {products.slice(0, 5).map((product) => (
                       <div
                         key={product.id}
-                        className="flex items-center justify-between p-3 border border-slate-200 rounded-lg"
+                        className="flex items-center justify-between p-3 border border-[#E1E3E5] rounded-md"
                       >
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-slate-200 rounded-lg flex items-center justify-center overflow-hidden">
+                          <div className="w-10 h-10 bg-[#F6F6F7] rounded-md flex items-center justify-center overflow-hidden">
                             {product?.featuredImage?.url || product?.images?.[0]?.url ? (
                               <img
                                 src={product.featuredImage?.url || product.images[0].url}
@@ -315,14 +325,14 @@ useEffect(() => {
                                 className="w-full h-full object-cover"
                               />
                             ) : (
-                              <Package className="h-5 w-5 text-slate-400" />
+                              <Package className="h-5 w-5 text-[#6D7175]" />
                             )}
                           </div>
                           <div>
-                            <div className="font-medium text-slate-900 truncate">
+                            <div className="font-medium text-[#202223] truncate">
                               {product.title}
                             </div>
-                            <div className="text-xs text-slate-500">
+                            <div className="text-xs text-[#6D7175]">
                               ${product.variants?.edges?.[0]?.node?.price || product.variants?.[0]?.price || "0.00"}
                             </div>
                           </div>
@@ -346,7 +356,7 @@ useEffect(() => {
             </Card>
 
             {/* Sync status */}
-            <Card className="border-0 shadow-lg">
+            <Card className="polaris-card border border-[#E1E3E5]">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Package className="h-5 w-5 mr-2 text-blue-600" />
@@ -356,11 +366,11 @@ useEffect(() => {
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-slate-600">Progress</span>
-                    <span className="text-sm font-medium">{syncProgress}%</span>
+                    <span className="text-sm text-[#6D7175]">Progress</span>
+                    <span className="text-sm font-medium text-[#202223]">{syncProgress}%</span>
                   </div>
                   <Progress value={syncProgress} className="h-2" />
-                  <div className="flex justify-between text-sm text-slate-600">
+                  <div className="flex justify-between text-sm text-[#6D7175]">
                     <span>Last sync: a sec ago</span>
                     <span>{totalProducts} products synced</span>
                   </div>
@@ -369,7 +379,7 @@ useEffect(() => {
             </Card>
 
             {/* Quick actions */}
-            <Card className="border-0 shadow-lg">
+            <Card className="polaris-card border border-[#E1E3E5]">
               <CardHeader>
                 <CardTitle>Quick Actions</CardTitle>
               </CardHeader>
@@ -404,10 +414,10 @@ useEffect(() => {
             </Card>
 
             {/* Recent activity */}
-            <Card className="border-0 shadow-lg">
+            <Card className="polaris-card border border-[#E1E3E5]">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <Clock className="h-5 w-5 mr-2 text-purple-600" />
+                  <Clock className="h-5 w-5 mr-2 text-[#5C6AC4]" />
                   Recent Activity
                 </CardTitle>
               </CardHeader>
@@ -425,10 +435,10 @@ useEffect(() => {
                         }`}
                       />
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-slate-900">
+                        <p className="text-sm font-medium text-[#202223]">
                           {activity.title}
                         </p>
-                        <p className="text-xs text-slate-600">{activity.time}</p>
+                        <p className="text-xs text-[#6D7175]">{activity.time}</p>
                       </div>
                     </div>
                   ))}
@@ -440,10 +450,10 @@ useEffect(() => {
           {/* Right column */}
           <div className="space-y-8">
             {/* Compliance overview */}
-            <Card className="border-0 shadow-lg">
+            <Card className="polaris-card border border-[#E1E3E5]">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <CheckCircle className="h-5 w-5 mr-2 text-green-600" />
+                  <CheckCircle className="h-5 w-5 mr-2 text-[#008060]" />
                   Compliance Overview
                 </CardTitle>
               </CardHeader>
@@ -451,10 +461,10 @@ useEffect(() => {
                 <div className="space-y-6">
                   <div>
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm text-slate-600">
+                      <span className="text-sm text-[#6D7175]">
                         HS Code Coverage
                       </span>
-                      <span className="text-sm font-medium">
+                      <span className="text-sm font-medium text-[#202223]">
                         {complianceScore}%
                       </span>
                     </div>
@@ -462,19 +472,19 @@ useEffect(() => {
                   </div>
                   <div>
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm text-slate-600">
+                      <span className="text-sm text-[#6D7175]">
                         Export Readiness
                       </span>
-                      <span className="text-sm font-medium">87%</span>
+                      <span className="text-sm font-medium text-[#202223]">87%</span>
                     </div>
                     <Progress value={87} className="h-2" />
                   </div>
                   <div>
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm text-slate-600">
+                      <span className="text-sm text-[#6D7175]">
                         ESG Compliance
                       </span>
-                      <span className="text-sm font-medium">76%</span>
+                      <span className="text-sm font-medium text-[#202223]">76%</span>
                     </div>
                     <Progress value={76} className="h-2" />
                   </div>
@@ -483,44 +493,44 @@ useEffect(() => {
             </Card>
 
             {/* Risk alerts */}
-            <Card className="border-0 shadow-lg">
+            <Card className="polaris-card border border-[#E1E3E5]">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <AlertTriangle className="h-5 w-5 mr-2 text-red-600" />
+                  <AlertTriangle className="h-5 w-5 mr-2 text-[#D72C0D]" />
                   Risk Alerts
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <div className="flex items-center space-x-3 p-3 bg-red-50 rounded-lg">
-                    <div className="w-2 h-2 bg-red-500 rounded-full" />
+                  <div className="flex items-center space-x-3 p-3 bg-[#FEF5F4] rounded-md border border-[#FED7CC]">
+                    <div className="w-2 h-2 bg-[#D72C0D] rounded-full" />
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-red-900">
+                      <p className="text-sm font-medium text-[#202223]">
                         High ESG Risk Product
                       </p>
-                      <p className="text-xs text-red-700">
+                      <p className="text-xs text-[#6D7175]">
                         Leather jacket from unverified supplier
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3 p-3 bg-yellow-50 rounded-lg">
-                    <div className="w-2 h-2 bg-yellow-500 rounded-full" />
+                  <div className="flex items-center space-x-3 p-3 bg-[#FFF4E5] rounded-md border border-[#FFE1B3]">
+                    <div className="w-2 h-2 bg-[#F49342] rounded-full" />
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-yellow-900">
+                      <p className="text-sm font-medium text-[#202223]">
                         Missing HS Code
                       </p>
-                      <p className="text-xs text-yellow-700">
+                      <p className="text-xs text-[#6D7175]">
                         {needReview} products need classification
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3 p-3 bg-orange-50 rounded-lg">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full" />
+                  <div className="flex items-center space-x-3 p-3 bg-[#FFF4E5] rounded-md border border-[#FFE1B3]">
+                    <div className="w-2 h-2 bg-[#F49342] rounded-full" />
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-orange-900">
+                      <p className="text-sm font-medium text-[#202223]">
                         Documentation Gap
                       </p>
-                      <p className="text-xs text-orange-700">
+                      <p className="text-xs text-[#6D7175]">
                         COO missing for EU exports
                       </p>
                     </div>
@@ -530,10 +540,10 @@ useEffect(() => {
             </Card>
 
             {/* Upcoming tasks */}
-            <Card className="border-0 shadow-lg">
+            <Card className="polaris-card border border-[#E1E3E5]">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <Bell className="h-5 w-5 mr-2 text-blue-600" />
+                  <Bell className="h-5 w-5 mr-2 text-[#008060]" />
                   Upcoming Tasks
                 </CardTitle>
               </CardHeader>
@@ -542,7 +552,7 @@ useEffect(() => {
                   {upcomingTasks.map((task, index) => (
                     <div
                       key={index}
-                      className="flex items-center space-x-3 p-3 border border-slate-200 rounded-lg"
+                      className="flex items-center space-x-3 p-3 border border-[#E1E3E5] rounded-md"
                     >
                       <Badge
                         variant={
@@ -556,10 +566,10 @@ useEffect(() => {
                         {task.priority}
                       </Badge>
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-slate-900">
+                        <p className="text-sm font-medium text-[#202223]">
                           {task.title}
                         </p>
-                        <p className="text-xs text-slate-600">
+                        <p className="text-xs text-[#6D7175]">
                           Due: {task.dueDate}
                         </p>
                       </div>

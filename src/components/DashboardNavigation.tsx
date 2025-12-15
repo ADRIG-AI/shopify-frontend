@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { usePlan } from "@/context/PlanContext";
+import Logo from "@/components/Logo";
 
 const rolePages: Record<string, string[]> = {
   admin: [
@@ -83,14 +84,14 @@ export const DashboardNavigation = () => {
   // Free plan
   if (!effectivePriceId || effectivePriceId === "NULL") {
     return (
-      <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
+      <nav className="bg-white border-b border-[#E1E3E5] sticky top-0 z-50 polaris-shadow">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <Link to="/dashboard" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
+              <div className="w-8 h-8 bg-[#008060] rounded-md flex items-center justify-center">
+                <span className="text-white font-semibold text-sm">D</span>
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-lg font-semibold text-[#202223]">
                 Dagala Analytics
               </span>
             </Link>
@@ -105,8 +106,8 @@ export const DashboardNavigation = () => {
                       size="sm"
                       className={`flex items-center space-x-2 ${
                         isActive(item.path)
-                          ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
-                          : "text-slate-600 hover:text-slate-900"
+                          ? "bg-[#008060] text-white hover:bg-[#006E52]"
+                          : "text-[#6D7175] hover:text-[#202223] hover:bg-[#F6F6F7]"
                       }`}
                     >
                       <item.icon className="h-4 w-4" />
@@ -168,7 +169,7 @@ export const DashboardNavigation = () => {
           </div>
 
           {isMobileMenuOpen && (
-            <div className="lg:hidden py-4 border-t border-slate-200">
+            <div className="lg:hidden py-4 border-t border-[#E1E3E5]">
               <div className="space-y-2">
                 {navigationItemsFree
                   .filter((item) => userType === "admin" || allowedPages.includes(item.path))
@@ -179,8 +180,8 @@ export const DashboardNavigation = () => {
                         size="sm"
                         className={`w-full justify-start flex items-center space-x-2 ${
                           isActive(item.path)
-                            ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
-                            : "text-slate-600 hover:text-slate-900"
+                            ? "bg-[#008060] text-white hover:bg-[#006E52]"
+                            : "text-[#6D7175] hover:text-[#202223] hover:bg-[#F6F6F7]"
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -195,7 +196,7 @@ export const DashboardNavigation = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="w-full text-blue-600 hover:text-blue-700"
+                        className="w-full text-[#202223] hover:bg-[#F6F6F7]"
                         onClick={() => {
                           setIsMobileMenuOpen(false);
                           navigate("/login");
@@ -206,7 +207,7 @@ export const DashboardNavigation = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
+                        className="w-full border-[#E1E3E5] text-[#202223] hover:bg-[#F6F6F7]"
                         onClick={() => {
                           setIsMobileMenuOpen(false);
                           navigate("/signup");
@@ -219,7 +220,7 @@ export const DashboardNavigation = () => {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="w-full text-red-600 hover:text-red-700"
+                      className="w-full text-[#D72C0D] hover:bg-[#FEF5F4]"
                       onClick={() => {
                         localStorage.removeItem("token");
                         localStorage.removeItem("user");
@@ -245,14 +246,14 @@ export const DashboardNavigation = () => {
     effectivePriceId === "price_1RcnosQiUhrwJo9CzIMCgiea"
   ) {
     return (
-      <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
+      <nav className="bg-white border-b border-[#E1E3E5] sticky top-0 z-50 polaris-shadow">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <Link to="/dashboard" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
+              <div className="w-8 h-8 bg-[#008060] rounded-md flex items-center justify-center">
+                <span className="text-white font-semibold text-sm">D</span>
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-lg font-semibold text-[#202223]">
                 Dagala Analytics
               </span>
             </Link>
@@ -267,8 +268,8 @@ export const DashboardNavigation = () => {
                       size="sm"
                       className={`flex items-center space-x-2 ${
                         isActive(item.path)
-                          ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
-                          : "text-slate-600 hover:text-slate-900"
+                          ? "bg-[#008060] text-white hover:bg-[#006E52]"
+                          : "text-[#6D7175] hover:text-[#202223] hover:bg-[#F6F6F7]"
                       }`}
                     >
                       <item.icon className="h-4 w-4" />
@@ -330,7 +331,7 @@ export const DashboardNavigation = () => {
           </div>
 
           {isMobileMenuOpen && (
-            <div className="lg:hidden py-4 border-t border-slate-200">
+            <div className="lg:hidden py-4 border-t border-[#E1E3E5]">
               <div className="space-y-2">
                 {navigationItemsStarter
                   .filter((item) => userType === "admin" || allowedPages.includes(item.path))
@@ -341,8 +342,8 @@ export const DashboardNavigation = () => {
                         size="sm"
                         className={`w-full justify-start flex items-center space-x-2 ${
                           isActive(item.path)
-                            ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
-                            : "text-slate-600 hover:text-slate-900"
+                            ? "bg-[#008060] text-white hover:bg-[#006E52]"
+                            : "text-[#6D7175] hover:text-[#202223] hover:bg-[#F6F6F7]"
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -357,7 +358,7 @@ export const DashboardNavigation = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="w-full text-blue-600 hover:text-blue-700"
+                        className="w-full text-[#202223] hover:bg-[#F6F6F7]"
                         onClick={() => {
                           setIsMobileMenuOpen(false);
                           navigate("/login");
@@ -368,7 +369,7 @@ export const DashboardNavigation = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="w-full border-blue-600 text-blue-600 hover:bg-blue-50"
+                        className="w-full border-[#E1E3E5] text-[#202223] hover:bg-[#F6F6F7]"
                         onClick={() => {
                           setIsMobileMenuOpen(false);
                           navigate("/signup");
@@ -381,7 +382,7 @@ export const DashboardNavigation = () => {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="w-full text-red-600 hover:text-red-700"
+                      className="w-full text-[#D72C0D] hover:bg-[#FEF5F4]"
                       onClick={() => {
                         localStorage.removeItem("token");
                         localStorage.removeItem("user");
@@ -406,13 +407,8 @@ export const DashboardNavigation = () => {
     <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <Link to="/dashboard" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">S</span>
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Dagala Analytics
-            </span>
+          <Link to="/dashboard">
+            <Logo size="nav" linkTo={null} />
           </Link>
 
           <div className="hidden lg:flex items-center space-x-1">
