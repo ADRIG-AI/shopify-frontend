@@ -122,7 +122,7 @@
   border-radius: 6px;
   font-weight: 500;
   transition: background-color 0.2s;
-}
+  }
 
 .polaris-button-primary:hover {
   background: #006E52;

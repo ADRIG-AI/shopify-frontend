@@ -192,7 +192,7 @@ const Pricing = () => {
                                 <Card
                                     key={plan.id}
                                     className={`border-0 shadow-lg relative ${
-                                        plan.popular ? "border-2 border-blue-500 lg:scale-105" : ""
+                                        plan.popular ? "border-2 border-blue-500 scale-105" : ""
                                     }`}
                                 >
                                     {plan.popular && (

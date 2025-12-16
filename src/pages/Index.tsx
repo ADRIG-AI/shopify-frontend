@@ -263,12 +263,12 @@ const Index = () => {
                     </Badge>
                   </div>
                 </CardHeader>
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none z-10 rounded-lg">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none z-20 rounded-lg">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 transition-opacity">
                     <Play className="h-8 w-8 sm:h-10 sm:w-10 text-blue-600 ml-1" fill="currentColor" />
                   </div>
                 </div>
-                <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6 relative z-0">
+                <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
                   {/* Key Metrics Grid */}
                   <div className="grid grid-cols-2 gap-3 sm:gap-4">
                     <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-3 sm:p-5 border border-blue-100">
@@ -291,7 +291,7 @@ const Index = () => {
                     </div>
                     <div className="w-full overflow-hidden">
                       <ChartContainer config={chartConfig} className="h-28 sm:h-36 w-full">
-                        <BarChart data={complianceScoreData} width={undefined} height={undefined}>
+                        <BarChart data={complianceScoreData}>
                           <Bar dataKey="value" fill="#3b82f6" radius={4} />
                         </BarChart>
                       </ChartContainer>
