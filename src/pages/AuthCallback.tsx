@@ -209,18 +209,10 @@ const AuthCallback = () => {
         // This should be done on the backend for security
         const backend = import.meta.env.VITE_BACKEND_ENDPOINT;
 
-        // Exchange the authorization code for an access token
-        const response = await fetch(`${backend}/auth/token`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            code,
-            shop,
-            state,
-          }),
+        // Exchange the authorization code for an access token via backend
+        const response = await fetch(`${backend}/user/shopify/callback?code=${code}&shop=${shop}&state=${state}&hmac=${hmac}`, {
+          method: "GET",
+          credentials: "include"
         });
 
         if (!response.ok) {
@@ -242,69 +234,14 @@ const AuthCallback = () => {
           );
         }
 
-        const data = await response.json();
+        // Backend handles token exchange and storage
+        if (response.ok) {
 
-        if (data.success && data.access_token && shop) {
-          // Save access token to Supabase for this shop
-          const { data: updateData, error: updateError } = await supabase
-            .from("shops")
-            .update({ shopify_access_token: data.access_token })
-            .eq("shopify_domain", shop)
-            .select("id");
-
-          if (updateError) {
-            throw new Error(
-              updateError.message || "Failed to update shop with access token"
-            );
-          }
-
-          // If no row was updated, insert the shop record (fallback for edge cases)
-          if (
-            !updateData ||
-            (Array.isArray(updateData) && updateData.length === 0)
-          ) {
-            // Try to get user_id from localStorage (if available)
-            let user_id = null;
-            try {
-              const user = JSON.parse(localStorage.getItem('user') || '{}');
-              const email = user.email;
-              if (email) {
-                const { data: userData, error: userError } = await supabase
-                  .from("users")
-                  .select("id")
-                  .eq("email", email)
-                  .single();
-                if (userData && userData.id) user_id = userData.id;
-              }
-            } catch (e) {
-              /* ignore */
-            }
-            const insertObj: any = {
-              shopify_domain: shop,
-              shopify_access_token: data.access_token,
-            };
-            if (user_id) insertObj.user_id = user_id;
-            const { error: insertError } = await supabase
-              .from("shops")
-              .insert([insertObj]);
-            if (insertError) {
-              throw new Error(
-                insertError.message || "Failed to insert shop with access token"
-              );
-            }
-          }
-        }
-
-        if (data.success) {
-          // Clear user session after successful Shopify connection
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-          
-          // Show success message briefly then redirect to login
+          // Show success message briefly then redirect to dashboard
           setIsLoading(false);
           setSuccess(true);
           setTimeout(() => {
-            navigate("/login");
+            navigate("/dashboard");
           }, 2000);
         } else {
           throw new Error("Failed to complete authentication");
@@ -354,7 +291,7 @@ const AuthCallback = () => {
             <Alert className="bg-green-50 border-green-200">
               <CheckCircle className="h-4 w-4 text-green-600" />
               <AlertDescription className="text-green-800">
-                Successfully connected! Please sign in to continue...
+                Successfully connected! Redirecting to app installer...
               </AlertDescription>
             </Alert>
           ) : null}

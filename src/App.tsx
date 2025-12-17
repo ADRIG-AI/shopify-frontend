@@ -21,6 +21,10 @@ import Billing from "./pages/Billing";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
+import ConnectStore from "./pages/ConnectStore";
+
+
+
 import ProtectedRoute from "./components/ProtectedRoute";
 import { PlanProvider } from "@/context/PlanContext";
 import LandedCostHistory from "./pages/LandedCostHistory";
@@ -58,7 +62,11 @@ const App = () => (
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/connect-store" element={<ConnectStore />} />
+
+
             <Route path="/auth/callback" element={<AuthCallback />} />
+
             <Route
               path="/dashboard"
               element={
