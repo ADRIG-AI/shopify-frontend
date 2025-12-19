@@ -126,7 +126,9 @@ const OrderDetailsModal: React.FC<Props> = ({ order, onClose }) => {
         setLoading(true);
 
         /* 1. Shopify order details */
-        const full = await fetchOrderDetails(order.id);
+        const response = await fetchOrderDetails(order.id);
+        // Backend returns {order: {...}, shop: {...}}, we need just the order
+        const full = response.order || response;
         setData(full);
 
         /* 2. PDF URLs in Supabase */
