@@ -25,7 +25,7 @@ const generateInvoicePDF = async (orderData: any, shopData: any) => {
   doc.setTextColor(30);
 
   // Optional logo
-  if (shopData.logo) {
+  if (shopData && shopData.logo) {
     try {
       doc.addImage(shopData.logo, 'PNG', 20, 15, 30, 15);
     } catch {}
@@ -41,8 +41,8 @@ const generateInvoicePDF = async (orderData: any, shopData: any) => {
   doc.line(20, 32, pageWidth - 20, 32);
 
   // ISSUED TO section
-  const shipping = orderData.shipping_address || {};
-  const customer = orderData.customer || {};
+  const shipping = (orderData && orderData.shipping_address) || {};
+  const customer = (orderData && orderData.customer) || {};
   let yLeft = 45;
 
   doc.setFontSize(9);
@@ -65,11 +65,11 @@ const generateInvoicePDF = async (orderData: any, shopData: any) => {
   let yRight = 45;
   const rightX = pageWidth - 20;
   doc.setFont(undefined, 'bold').text('INVOICE NO:', rightX - 50, yRight);
-  doc.setFont(undefined, 'normal').text(`${orderData.order_number || orderData.id}`, rightX, yRight, { align: 'right' });
+  doc.setFont(undefined, 'normal').text(`${(orderData && orderData.order_number) || (orderData && orderData.id) || 'N/A'}`, rightX, yRight, { align: 'right' });
 
   yRight += 5;
   doc.setFont(undefined, 'bold').text('DATE:', rightX - 50, yRight);
-  doc.setFont(undefined, 'normal').text(new Date(orderData.created_at).toLocaleDateString(), rightX, yRight, { align: 'right' });
+  doc.setFont(undefined, 'normal').text(orderData && orderData.created_at ? new Date(orderData.created_at).toLocaleDateString() : 'N/A', rightX, yRight, { align: 'right' });
 
   // TABLE HEADERS
   const tableStartY = 90;
@@ -89,7 +89,7 @@ const generateInvoicePDF = async (orderData: any, shopData: any) => {
   doc.setFont(undefined, 'normal');
   let subtotal = 0;
 
-  (orderData.line_items || []).forEach((item: any) => {
+  ((orderData && orderData.line_items) || []).forEach((item: any) => {
     const desc = item.title || 'Product';
     const qty = parseFloat(item.quantity || '1');
     const price = parseFloat(item.price || '0');
@@ -109,8 +109,8 @@ const generateInvoicePDF = async (orderData: any, shopData: any) => {
   doc.setDrawColor(150);
   doc.line(130, curY - 4, pageWidth - 20, curY - 4);
 
-  const tax = parseFloat(orderData.total_tax || '0');
-  const total = parseFloat(orderData.total_price || subtotal + tax);
+  const tax = parseFloat((orderData && orderData.total_tax) || '0');
+  const total = parseFloat((orderData && orderData.total_price) || (subtotal + tax).toString());
 
   doc.setFont(undefined, 'bold');
   doc.text('SUBTOTAL', 130, curY);
@@ -130,13 +130,13 @@ const generateInvoicePDF = async (orderData: any, shopData: any) => {
   curY += 25;
   doc.setFontSize(11);
   doc.setFont(undefined, 'italic');
-  doc.text(shopData.name || 'Your Store', pageWidth - 20, curY, { align: 'right' });
+  doc.text((shopData && shopData.name) || 'Your Store', pageWidth - 20, curY, { align: 'right' });
 
   // Instead of saving directly, get the PDF as buffer
   const pdfBuffer = doc.output('arraybuffer');
   
   // Generate filename
-  const fileName = `Invoice_${orderData.order_number || orderData.id}_${Date.now()}.pdf`;
+  const fileName = `Invoice_${(orderData && orderData.order_number) || (orderData && orderData.id) || 'unknown'}_${Date.now()}.pdf`;
   
   // Return both the buffer and filename
   return { pdfBuffer, fileName, doc };
@@ -148,8 +148,9 @@ const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ order, onClose, onG
   const handleGenerate = async () => {
     try {
       const backend = import.meta.env.VITE_BACKEND_ENDPOINT;
-      const email = localStorage.getItem("user_email");
-      const userType = localStorage.getItem("user_type");
+      const userData = JSON.parse(localStorage.getItem("user") || '{}');
+      const email = userData.email;
+      const userType = userData.type || 'admin';
       
       // Get shop credentials from Supabase
       let shop, shopify_access_token;
@@ -175,6 +176,10 @@ const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ order, onClose, onG
           .eq("email", email)
           .single();
         
+        if (!user || !email) {
+          throw new Error('User not found or email missing');
+        }
+        
         const { data: shopRow } = await supabase
           .from("shops")
           .select("shopify_domain, shopify_access_token")
@@ -198,43 +203,74 @@ const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ order, onClose, onG
 
       if (response.ok) {
         const data = await response.json();
+        console.log('Backend response:', data);
         
-        // Generate PDF
-        const { pdfBuffer, fileName, doc } = await generateInvoicePDF(data.order, data.shop);
+        if (!data || !data.order || !data.order.id) {
+          throw new Error('Order data not found in response');
+        }
+        
+        // Map GraphQL response to expected format
+        const orderData = {
+          id: data.order.id,
+          order_number: data.order.name,
+          created_at: data.order.createdAt,
+          total_price: data.order.totalPriceSet?.shopMoney?.amount || '0',
+          total_tax: data.order.totalTaxSet?.shopMoney?.amount || '0',
+          subtotal_price: data.order.subtotalPriceSet?.shopMoney?.amount || '0',
+          currency: data.order.totalPriceSet?.shopMoney?.currencyCode || 'USD',
+          customer: data.order.customer ? {
+            first_name: data.order.customer.firstName,
+            last_name: data.order.customer.lastName,
+            email: data.order.customer.email
+          } : {},
+          shipping_address: data.order.shippingAddress || {},
+          billing_address: data.order.billingAddress || {},
+          line_items: data.order.lineItems?.edges?.map((edge: any) => ({
+            title: edge.node.title,
+            quantity: edge.node.quantity,
+            price: edge.node.originalUnitPriceSet?.shopMoney?.amount || '0'
+          })) || []
+        };
+        
+        // Generate PDF with mapped data and shop info
+        const { pdfBuffer, fileName, doc } = await generateInvoicePDF(orderData, data.shop || {});
         
         // Save locally for user
-        doc.save(`Invoice_${data.order.order_number || data.order.id}.pdf`);
+        doc.save(`Invoice_${data.order.name || data.order.id || 'unknown'}.pdf`);
         
         // Upload to S3 and save to Supabase
-        const uploadResponse = await fetch(`${backend}/shopify/invoices/save`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            shop,
-            accessToken: shopify_access_token,
-            orderId: order.id,
-            orderData: data.order,
-            pdfBuffer: Array.from(new Uint8Array(pdfBuffer)),
-            fileName
-          }),
-        });
-        
-        if (uploadResponse.ok) {
-          const uploadData = await uploadResponse.json();
-          console.log('Invoice saved:', uploadData.invoiceUrl);
-          onGenerated(order.id);
-          onClose();
-        } else {
-          const errorData = await uploadResponse.json();
-          console.error('Failed to save invoice:', errorData);
-          // Still consider it successful since the user has the PDF
-          onGenerated(order.id);
-          onClose();
+        try {
+          const uploadResponse = await fetch(`${backend}/shopify/invoices/save`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              shop,
+              accessToken: shopify_access_token,
+              orderId: order.id,
+              orderData: orderData,
+              pdfBuffer: Array.from(new Uint8Array(pdfBuffer)),
+              fileName
+            }),
+          });
+          
+          if (uploadResponse.ok) {
+            const uploadData = await uploadResponse.json();
+            console.log('Invoice saved to S3:', uploadData.invoiceUrl);
+          } else {
+            const errorData = await uploadResponse.json();
+            console.error('Failed to save to S3:', errorData);
+          }
+        } catch (s3Error) {
+          console.error('S3 upload error:', s3Error);
         }
+        
+        // Always consider successful since user has the PDF
+        onGenerated(order.id);
+        onClose();
       } else {
         const errorData = await response.json();
         console.error('Failed to fetch order details:', errorData);
-        alert('Failed to generate invoice. Please try again.');
+        alert(`Failed to generate invoice: ${errorData.error || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Error generating invoice:', error);

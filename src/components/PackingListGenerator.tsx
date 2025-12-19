@@ -20,8 +20,9 @@ interface PackingListGeneratorProps {
 }
 
 async function getShopCredentials() {
-  const email = localStorage.getItem("user_email");
-  const userType = localStorage.getItem("user_type");
+  const userData = JSON.parse(localStorage.getItem("user") || '{}');
+  const email = userData.email;
+  const userType = userData.type || 'admin';
   if (!email) throw new Error("No user email in localStorage");
 
   if (userType === "sub_user") {
@@ -45,6 +46,10 @@ async function getShopCredentials() {
     .select("id")
     .eq("email", email)
     .single();
+  
+  if (!user) {
+    throw new Error('User not found');
+  }
 
   const { data: shopRow } = await supabase
     .from("shops")
@@ -259,10 +264,32 @@ export const PackingListGenerator: React.FC<PackingListGeneratorProps> = ({
       setBusy(true);
       const backend = import.meta.env.VITE_BACKEND_ENDPOINT;
       const { shop, token } = await getShopCredentials();
-      const { order: fullOrder, shop: shopData } = await fetchOrderDetails(order.id);
+      const { order: rawOrder, shop: shopData } = await fetchOrderDetails(order.id);
+      
+      // Map GraphQL response to expected format
+      const fullOrder = {
+        id: rawOrder.id,
+        order_number: rawOrder.name,
+        created_at: rawOrder.createdAt,
+        total_price: rawOrder.totalPriceSet?.shopMoney?.amount || '0',
+        customer: rawOrder.customer ? {
+          first_name: rawOrder.customer.firstName,
+          last_name: rawOrder.customer.lastName,
+          email: rawOrder.customer.email
+        } : {},
+        shipping_address: rawOrder.shippingAddress || {},
+        billing_address: rawOrder.billingAddress || {},
+        line_items: rawOrder.lineItems?.edges?.map((edge: any) => ({
+          title: edge.node.title,
+          quantity: edge.node.quantity,
+          product_id: edge.node.product?.id?.replace('gid://shopify/Product/', '') || edge.node.variant?.sku,
+          sku: edge.node.variant?.sku,
+          unit_of_measurement: 'pcs'
+        })) || []
+      };
       
       // Generate PDF and get buffer
-      const { pdfBuffer, fileName } = generatePackingPDF(fullOrder, shopData, netWeight, grossWeight);
+      const { pdfBuffer, fileName } = generatePackingPDF(fullOrder, shopData || {}, netWeight, grossWeight);
       
       // Upload to S3 and save to Supabase
       const uploadResponse = await fetch(`${backend}/shopify/packing-lists/save`, {
