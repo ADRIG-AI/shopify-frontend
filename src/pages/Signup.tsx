@@ -78,7 +78,7 @@ const Signup = () => {
 
               <CardTitle className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Create Your Account</CardTitle>
               <CardDescription className="text-sm sm:text-base text-slate-600">
-                Sign up to manage your Dagala Analytics account
+                Sign up to manage your TradeOps Analytica account
               </CardDescription>
             </CardHeader>
 

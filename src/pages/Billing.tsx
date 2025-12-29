@@ -29,7 +29,7 @@ const plans = [
   {
     id: "starter",
     name: "Starter",
-    price: { monthly: 29, yearly: 290 },
+    price: { monthly: 1, yearly: 10 },
     priceId: {
       monthly: "price_1RcnoUQiUhrwJo9CamPZGsh1",
       yearly: "price_1RcnosQiUhrwJo9CzIMCgiea",

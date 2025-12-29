@@ -21,8 +21,8 @@ const Footer = () => {
             <div className="space-y-3 mb-6">
               <div className="flex items-center gap-3 text-sm text-slate-300">
                 <Mail className="h-4 w-4 text-blue-400" />
-                <a href="mailto:support@dagala.com" className="hover:text-white transition-colors">
-                  support@dagala.com
+                <a href="mailto:support@TradeOps.com" className="hover:text-white transition-colors">
+                  support@tradeops.com
                 </a>
               </div>
               <div className="flex items-center gap-3 text-sm text-slate-300">
@@ -40,7 +40,7 @@ const Footer = () => {
             {/* Social Media */}
             <div className="flex items-center gap-4">
               <a
-                href="https://linkedin.com/company/dagala"
+                href="https://linkedin.com/company/tradeops"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-slate-800 hover:bg-gradient-to-br hover:from-blue-600 hover:to-purple-600 flex items-center justify-center transition-all duration-300 hover:scale-110 border border-slate-700 hover:border-transparent"
@@ -49,7 +49,7 @@ const Footer = () => {
                 <Linkedin className="h-5 w-5 text-slate-300 hover:text-white" />
               </a>
               <a
-                href="https://twitter.com/dagala"
+                href="https://twitter.com/tradeops"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-slate-800 hover:bg-gradient-to-br hover:from-blue-600 hover:to-purple-600 flex items-center justify-center transition-all duration-300 hover:scale-110 border border-slate-700 hover:border-transparent"
@@ -58,7 +58,7 @@ const Footer = () => {
                 <Twitter className="h-5 w-5 text-slate-300 hover:text-white" />
               </a>
               <a
-                href="https://github.com/dagala"
+                href="https://github.com/tradeops"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-slate-800 hover:bg-gradient-to-br hover:from-blue-600 hover:to-purple-600 flex items-center justify-center transition-all duration-300 hover:scale-110 border border-slate-700 hover:border-transparent"
@@ -67,7 +67,7 @@ const Footer = () => {
                 <Github className="h-5 w-5 text-slate-300 hover:text-white" />
               </a>
               <a
-                href="https://facebook.com/dagala"
+                href="https://facebook.com/tradeops"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-slate-800 hover:bg-gradient-to-br hover:from-blue-600 hover:to-purple-600 flex items-center justify-center transition-all duration-300 hover:scale-110 border border-slate-700 hover:border-transparent"
@@ -140,7 +140,7 @@ const Footer = () => {
         <div className="pt-8 border-t border-slate-700">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-slate-400 text-sm">
-              &copy; {new Date().getFullYear()} Dagala Analytics. All rights reserved.
+              &copy; {new Date().getFullYear()} TradeOps Analytica. All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-sm text-slate-400">
               <Link to="/terms" className="hover:text-white transition-colors">

@@ -14,7 +14,7 @@ const ConnectStore = () => {
         <CardHeader>
           <CardTitle>Connect Your Shopify Store</CardTitle>
           <CardDescription>
-            Connect your Shopify store to start analyzing your data with Dagala Analytics
+            Connect your Shopify store to start analyzing your data with TradeOps Analytica
           </CardDescription>
         </CardHeader>
         <CardContent>

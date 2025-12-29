@@ -43,7 +43,7 @@ const Logo = ({
       <div className={`${currentSize.icon} flex items-center justify-center`}>
         <img 
           src={logoSrc}
-          alt="Dagala Analytics" 
+          alt="TradeOps Analytica" 
           className="h-full w-auto object-contain max-w-full"
         />
       </div>

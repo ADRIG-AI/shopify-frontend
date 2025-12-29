@@ -85,7 +85,7 @@ const Pricing = () => {
 
                         <div className="flex items-center space-x-4 sm:space-x-6">
                             <div className="hidden lg:flex items-center space-x-4 text-sm text-slate-600">
-                                <a href="mailto:support@dagala.com" className="hover:text-slate-900 transition-colors">support@dagala.com</a>
+                                <a href="mailto:support@tradeops.com" className="hover:text-slate-900 transition-colors">support@tradeops.com</a>
                                 <a href="tel:+15551234567" className="hover:text-slate-900 transition-colors">+1 (555) 123-4567</a>
                             </div>
                             <div className="hidden sm:flex items-center space-x-2">
@@ -119,7 +119,7 @@ const Pricing = () => {
                                 <Link to="/pricing" className="font-medium text-sm text-slate-900 border-b-2 border-blue-600 pb-1" onClick={() => setIsMobileMenuOpen(false)}>Pricing</Link>
                                 <div className="flex flex-col space-y-2 pt-4 border-t border-slate-200">
                                     <div className="flex flex-col space-y-2 text-sm text-slate-600">
-                                        <a href="mailto:support@dagala.com" className="hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>support@dagala.com</a>
+                                        <a href="mailto:support@tradeops.com" className="hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>support@tradeops.com</a>
                                         <a href="tel:+15551234567" className="hover:text-slate-900 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>+1 (555) 123-4567</a>
                                     </div>
                                     <div className="flex flex-col space-y-2 pt-2">
@@ -258,7 +258,7 @@ const Pricing = () => {
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-8 sm:mb-12 lg:mb-16">
                         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4">
-                            Why Choose Dagala Analytics?
+                            Why Choose TradeOps Analytica?
                         </h2>
                         <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed px-4">
                             All plans include our core features and benefits

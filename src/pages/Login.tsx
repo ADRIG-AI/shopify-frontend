@@ -73,7 +73,7 @@ const Login = () => {
 
               <CardTitle className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Welcome Back</CardTitle>
               <CardDescription className="text-sm sm:text-base text-slate-600">
-                Sign in to your Dagala Analytics account
+                Sign in to your TradeOps Analytica account
               </CardDescription>
             </CardHeader>
 

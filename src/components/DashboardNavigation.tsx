@@ -84,16 +84,11 @@ export const DashboardNavigation = () => {
   // Free plan
   if (!effectivePriceId || effectivePriceId === "NULL") {
     return (
-      <nav className="bg-white border-b border-[#E1E3E5] sticky top-0 z-50 polaris-shadow">
+      <nav className="bg-white border-b border-purple-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
-            <Link to="/dashboard" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-[#008060] rounded-md flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">D</span>
-              </div>
-              <span className="text-lg font-semibold text-[#202223]">
-                Dagala Analytics
-              </span>
+            <Link to="/dashboard">
+              <Logo size="nav" linkTo={null} />
             </Link>
 
             <div className="hidden lg:flex items-center space-x-1">
@@ -106,8 +101,8 @@ export const DashboardNavigation = () => {
                       size="sm"
                       className={`flex items-center space-x-2 ${
                         isActive(item.path)
-                          ? "bg-[#008060] text-white hover:bg-[#006E52]"
-                          : "text-[#6D7175] hover:text-[#202223] hover:bg-[#F6F6F7]"
+                          ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+                          : "text-slate-600 hover:text-slate-900"
                       }`}
                     >
                       <item.icon className="h-4 w-4" />
@@ -169,7 +164,7 @@ export const DashboardNavigation = () => {
           </div>
 
           {isMobileMenuOpen && (
-            <div className="lg:hidden py-4 border-t border-[#E1E3E5]">
+            <div className="lg:hidden py-4 border-t border-purple-200">
               <div className="space-y-2">
                 {navigationItemsFree
                   .filter((item) => userType === "admin" || allowedPages.includes(item.path))
@@ -180,8 +175,8 @@ export const DashboardNavigation = () => {
                         size="sm"
                         className={`w-full justify-start flex items-center space-x-2 ${
                           isActive(item.path)
-                            ? "bg-[#008060] text-white hover:bg-[#006E52]"
-                            : "text-[#6D7175] hover:text-[#202223] hover:bg-[#F6F6F7]"
+                            ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+                            : "text-slate-600 hover:text-slate-900"
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -246,16 +241,11 @@ export const DashboardNavigation = () => {
     effectivePriceId === "price_1RcnosQiUhrwJo9CzIMCgiea"
   ) {
     return (
-      <nav className="bg-white border-b border-[#E1E3E5] sticky top-0 z-50 polaris-shadow">
+      <nav className="bg-white border-b border-purple-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
-            <Link to="/dashboard" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-[#008060] rounded-md flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">D</span>
-              </div>
-              <span className="text-lg font-semibold text-[#202223]">
-                Dagala Analytics
-              </span>
+            <Link to="/dashboard">
+              <Logo size="nav" linkTo={null} />
             </Link>
 
             <div className="hidden lg:flex items-center space-x-1">
@@ -268,8 +258,8 @@ export const DashboardNavigation = () => {
                       size="sm"
                       className={`flex items-center space-x-2 ${
                         isActive(item.path)
-                          ? "bg-[#008060] text-white hover:bg-[#006E52]"
-                          : "text-[#6D7175] hover:text-[#202223] hover:bg-[#F6F6F7]"
+                          ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+                          : "text-slate-600 hover:text-slate-900"
                       }`}
                     >
                       <item.icon className="h-4 w-4" />
@@ -331,7 +321,7 @@ export const DashboardNavigation = () => {
           </div>
 
           {isMobileMenuOpen && (
-            <div className="lg:hidden py-4 border-t border-[#E1E3E5]">
+            <div className="lg:hidden py-4 border-t border-purple-200">
               <div className="space-y-2">
                 {navigationItemsStarter
                   .filter((item) => userType === "admin" || allowedPages.includes(item.path))
@@ -342,8 +332,8 @@ export const DashboardNavigation = () => {
                         size="sm"
                         className={`w-full justify-start flex items-center space-x-2 ${
                           isActive(item.path)
-                            ? "bg-[#008060] text-white hover:bg-[#006E52]"
-                            : "text-[#6D7175] hover:text-[#202223] hover:bg-[#F6F6F7]"
+                            ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+                            : "text-slate-600 hover:text-slate-900"
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -404,7 +394,7 @@ export const DashboardNavigation = () => {
 
   // All features for other plans
   return (
-    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <nav className="bg-white border-b border-purple-200 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/dashboard">
@@ -484,7 +474,7 @@ export const DashboardNavigation = () => {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-slate-200">
+          <div className="lg:hidden py-4 border-t border-purple-200">
             <div className="space-y-2">
               {navigationItems
                 .filter((item) => userType === "admin" || allowedPages.includes(item.path))

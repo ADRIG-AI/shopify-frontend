@@ -22,6 +22,8 @@ import {
   ArrowDown,
   Bell,
   Plus,
+  User,
+  LogOut,
 } from "lucide-react";
 import { DashboardNavigation } from "@/components/DashboardNavigation";
 import { supabase } from "../lib/supabaseClient";
@@ -33,6 +35,7 @@ const Dashboard = () => {
   const [error, setError] = useState("");
   const [products, setProducts] = useState<any[]>([]);
   const [userName, setUserName] = useState("");
+  const [shopifyConnected, setShopifyConnected] = useState(false);
   const backend = import.meta.env.VITE_BACKEND_ENDPOINT;
 
   // Handle Stripe success callback
@@ -75,6 +78,7 @@ useEffect(() => {
         const { shop, accessToken } = await resolveShopAndToken();
 
         if (shop && accessToken) {
+          setShopifyConnected(true);
           // Shop info
           const shopRes = await fetch(`${backend}/shopify/shop-info`, {
             method: "POST",
@@ -102,6 +106,8 @@ useEffect(() => {
             const productsData = await productsRes.json();
             setProducts(productsData.products || []);
           }
+        } else {
+          setShopifyConnected(false);
         }
 
       } catch (err: any) {
@@ -202,34 +208,96 @@ useEffect(() => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F6F6F7] flex items-center justify-center">
-        <div className="text-center text-[#6D7175]">Loading dashboard...</div>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center text-gray-600">Loading dashboard...</div>
+      </div>
+    );
+  }
+
+  if (!shopifyConnected) {
+    return (
+      <div className="min-h-screen bg-white">
+        <nav className="bg-white border-b border-purple-200 sticky top-0 z-50 shadow-sm">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="flex justify-between items-center h-16">
+              <Link to="/dashboard" className="flex items-center space-x-3">
+                <img 
+                  src="/Dagala_Analytics_-_logo_light_bg-removebg-preview (1).png" 
+                  alt="TradeOps Analytica" 
+                  className="h-8 w-auto"
+                />
+              </Link>
+              <div className="flex items-center space-x-3">
+                <Button variant="ghost" size="sm" className="text-purple-600 hover:text-purple-700 hover:bg-purple-50">
+                  <User className="h-5 w-5" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+                    window.location.href = '/login';
+                  }}
+                >
+                  <LogOut className="h-5 w-5" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <Card className="border border-purple-200 max-w-2xl mx-auto shadow-lg">
+            <CardContent className="p-8 text-center">
+              <div className="mb-6">
+                <Package className="h-16 w-16 mx-auto text-purple-600 mb-4" />
+                <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+                  Connect Your Shopify Store
+                </h1>
+                <p className="text-gray-600">
+                  You need to connect your Shopify store to access the dashboard features.
+                </p>
+              </div>
+              <Button
+                onClick={() => {
+                  const user = JSON.parse(localStorage.getItem('user') || '{}');
+                  const shopifyAuthUrl = `https://shopify.com/admin/oauth/authorize?client_id=${import.meta.env.VITE_SHOPIFY_API_KEY}&scope=read_customers,read_files,read_order_edits,read_orders,read_products,write_customers,write_files,write_order_edits,write_orders,write_products&redirect_uri=${encodeURIComponent(import.meta.env.VITE_REDIRECT_URI)}&response_type=code&state=${user.id}`;
+                  window.location.href = shopifyAuthUrl;
+                }}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg px-8"
+              >
+                Connect Shopify Store
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#F6F6F7] flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="text-[#D72C0D] mb-4">{error}</div>
-          <Button onClick={() => window.location.reload()} className="bg-[#008060] hover:bg-[#006E52]">Retry</Button>
+          <div className="text-red-600 mb-4">{error}</div>
+          <Button onClick={() => window.location.reload()} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">Retry</Button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F6F6F7]">
+    <div className="min-h-screen bg-white">
       <DashboardNavigation />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Welcome */}
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold text-[#202223] mb-2">
+          <h1 className="text-3xl font-semibold text-gray-900 mb-2">
             Welcome back, {userName}! 👋
           </h1>
-          <p className="text-[#6D7175]">
+          <p className="text-gray-600">
             Here's what's happening with your compliance automation today.
           </p>
         </div>
@@ -237,25 +305,25 @@ useEffect(() => {
         {/* Stats grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {statsCards.map((stat, index) => (
-            <Card key={index} className="polaris-card border border-[#E1E3E5]">
+            <Card key={index} className="border border-purple-200 shadow-sm">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-[#6D7175] mb-1">{stat.title}</p>
-                    <p className="text-2xl font-semibold text-[#202223]">
+                    <p className="text-sm text-gray-600 mb-1">{stat.title}</p>
+                    <p className="text-2xl font-semibold text-gray-900">
                       {stat.value}
                     </p>
                     <div className="flex items-center mt-2">
                       {stat.changeType === "increase" ? (
-                        <ArrowUp className="h-4 w-4 text-[#008060] mr-1" />
+                        <ArrowUp className="h-4 w-4 text-purple-600 mr-1" />
                       ) : (
-                        <ArrowDown className="h-4 w-4 text-[#D72C0D] mr-1" />
+                        <ArrowDown className="h-4 w-4 text-red-600 mr-1" />
                       )}
                       <span
                         className={`text-sm ${
                           stat.changeType === "increase"
-                            ? "text-[#008060]"
-                            : "text-[#D72C0D]"
+                            ? "text-purple-600"
+                            : "text-red-600"
                         }`}
                       >
                         {stat.change}
@@ -263,16 +331,16 @@ useEffect(() => {
                     </div>
                   </div>
                   <div className={`p-3 rounded-md ${
-                    stat.color === "blue" ? "bg-[#E3F2FD]" :
-                    stat.color === "green" ? "bg-[#E8F5E9]" :
-                    stat.color === "orange" ? "bg-[#FFF3E0]" :
-                    "bg-[#FFEBEE]"
+                    stat.color === "blue" ? "bg-purple-100" :
+                    stat.color === "green" ? "bg-purple-100" :
+                    stat.color === "orange" ? "bg-orange-100" :
+                    "bg-red-100"
                   }`}>
                     <stat.icon className={`h-6 w-6 ${
-                      stat.color === "blue" ? "text-[#5C6AC4]" :
-                      stat.color === "green" ? "text-[#008060]" :
-                      stat.color === "orange" ? "text-[#F49342]" :
-                      "text-[#D72C0D]"
+                      stat.color === "blue" ? "text-purple-600" :
+                      stat.color === "green" ? "text-purple-600" :
+                      stat.color === "orange" ? "text-orange-600" :
+                      "text-red-600"
                     }`} />
                   </div>
                 </div>
