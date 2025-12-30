@@ -68,7 +68,7 @@ const Login = () => {
           <Card className="border-0 shadow-lg bg-white">
             <CardHeader className="text-center pb-4 sm:pb-6 px-4 sm:px-6 pt-6">
               <div className="flex items-center justify-center mb-4 sm:mb-6">
-                <Logo size="lg" linkTo={null} />
+                <Logo size="md" linkTo={null} />
               </div>
 
               <CardTitle className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Welcome Back</CardTitle>

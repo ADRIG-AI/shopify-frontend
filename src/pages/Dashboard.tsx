@@ -222,7 +222,7 @@ useEffect(() => {
             <div className="flex justify-between items-center h-16">
               <Link to="/dashboard" className="flex items-center space-x-3">
                 <img 
-                  src="/Dagala_Analytics_-_logo_light_bg-removebg-preview (1).png" 
+                  src="/1.png" 
                   alt="TradeOps Analytica" 
                   className="h-8 w-auto"
                 />

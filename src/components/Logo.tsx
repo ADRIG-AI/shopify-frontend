@@ -20,10 +20,10 @@ const Logo = ({
   bgType
 }: LogoProps) => {
   const sizeClasses = {
-    sm: { icon: "h-6", text: "text-sm", subtext: "text-xs" },
-    md: { icon: "h-8", text: "text-lg", subtext: "text-xs" },
-    nav: { icon: "h-10", text: "text-xl", subtext: "text-sm" },
-    lg: { icon: "h-12", text: "text-2xl", subtext: "text-sm" },
+    sm: { icon: "h-10", text: "text-sm", subtext: "text-xs" },
+    md: { icon: "h-16", text: "text-lg", subtext: "text-xs" },
+    nav: { icon: "h-16", text: "text-xl", subtext: "text-sm" },
+    lg: { icon: "h-18", text: "text-2xl", subtext: "text-sm" },
   };
 
   const currentSize = sizeClasses[size];
@@ -36,7 +36,7 @@ const Logo = ({
   const logoType = bgType || (textColor === "light" ? "dark" : "light");
   const logoSrc = logoType === "dark" 
     ? "/Dagala_Analytics_-_logo_dark_bg-removebg-preview (2).png"
-    : "/Dagala_Analytics_-_logo_light_bg-removebg-preview (1).png";
+    : "/1.png";
 
   const LogoContent = () => (
     <div className={`flex items-center ${showText ? 'space-x-3' : ''} ${className}`}>
@@ -51,7 +51,7 @@ const Logo = ({
       {showText && (
         <div className="flex flex-col">
           <span className={`${currentSize.text} font-semibold ${textColorClasses.main}`}>
-            Dagala
+          TradeOps
           </span>
           <span className={`${currentSize.subtext} font-medium -mt-1 tracking-wider ${textColorClasses.sub}`}>
             ANALYTICS
