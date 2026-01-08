@@ -35,8 +35,8 @@ const Logo = ({
   // If bgType is explicitly set, use it; otherwise infer from textColor
   const logoType = bgType || (textColor === "light" ? "dark" : "light");
   const logoSrc = logoType === "dark" 
-    ? "/Dagala_Analytics_-_logo_dark_bg-removebg-preview (2).png"
-    : "/1.png";
+    ? "/TradeOps_white.svg"
+    : "/TradeOps_black.svg";
 
   const LogoContent = () => (
     <div className={`flex items-center ${showText ? 'space-x-3' : ''} ${className}`}>
