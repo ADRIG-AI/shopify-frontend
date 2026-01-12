@@ -49,17 +49,28 @@ const Admin = () => {
   const fetchSubUsers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/user/sub-users`, {
+      console.log('Token:', token ? 'exists' : 'missing');
+      
+      if (!token) {
+        console.error('No token found in localStorage');
+        setSubUsers([]);
+        return;
+      }
+      
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/api/user/sub-users`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
       
+      console.log('Response status:', response.status);
+      
       if (response.ok) {
         const data = await response.json();
         setSubUsers(data);
       } else {
-        console.error('Failed to fetch sub-users:', response.status);
+        const errorText = await response.text();
+        console.error('Failed to fetch sub-users:', response.status, errorText);
         setSubUsers([]);
       }
     } catch (error) {
@@ -138,7 +149,7 @@ const Admin = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/user/sub-users`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/api/user/sub-users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -169,7 +180,7 @@ const Admin = () => {
   const handleDeleteSubUser = async (id: string) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/user/sub-users/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/api/user/sub-users/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

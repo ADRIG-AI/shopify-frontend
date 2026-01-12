@@ -48,7 +48,7 @@ const plans = [
   {
     id: "professional",
     name: "Professional",
-    price: { monthly: 99, yearly: 990 },
+    price: { monthly: 25, yearly: 990 },
     priceId: {
       monthly: "price_1RcnpzQiUhrwJo9CVz7Wsug6",
       yearly: "price_1RcnqKQiUhrwJo9CCdhvD8Ep",
