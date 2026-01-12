@@ -88,7 +88,7 @@ export const DashboardNavigation = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <Link to="/dashboard">
-              <Logo size="nav" linkTo={null} />
+              <Logo size="sm" linkTo={null} />
             </Link>
 
             <div className="hidden lg:flex items-center space-x-1">
@@ -245,7 +245,7 @@ export const DashboardNavigation = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <Link to="/dashboard">
-              <Logo size="nav" linkTo={null} />
+              <Logo size="sm" linkTo={null} />
             </Link>
 
             <div className="hidden lg:flex items-center space-x-1">
@@ -398,7 +398,7 @@ export const DashboardNavigation = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/dashboard">
-            <Logo size="nav" linkTo={null} />
+            <Logo size="sm" linkTo={null} />
           </Link>
 
           <div className="hidden lg:flex items-center space-x-1">

@@ -304,7 +304,7 @@ const Documents = () => {
             order.customer?.firstName && order.customer?.lastName
               ? `${order.customer.firstName} ${order.customer.lastName}`
               : order.email || order.customer?.email || "Unknown Customer",
-          date: new Date(order.createdAt).toISOString().split("T")[0],
+          date: order.createdAt ? new Date(order.createdAt).toISOString().split("T")[0] : new Date().toISOString().split("T")[0],
           status:
             order.displayFulfillmentStatus || order.displayFinancialStatus || "pending",
           total: `${order.totalPriceSet?.shopMoney?.currencyCode || '$'} ${parseFloat(order.totalPriceSet?.shopMoney?.amount || 0).toFixed(2)}`,
