@@ -139,6 +139,25 @@ const Billing = () => {
         setError('Please log in to continue.');
         return;
       }
+
+      // Validate token before making request
+      try {
+        const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+        const currentTime = Date.now() / 1000;
+        if (tokenPayload.exp < currentTime) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          setError('Session expired. Please log in again.');
+          window.location.href = '/login';
+          return;
+        }
+      } catch (tokenError) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setError('Invalid session. Please log in again.');
+        window.location.href = '/login';
+        return;
+      }
   
       const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/shopify/billing/create-subscription`, {
         method: 'POST',
