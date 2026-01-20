@@ -250,7 +250,7 @@ const ESG = () => {
       setLoading(true);
       try {
         const userId = getUserId();
-        const response = await fetch(`${backend}/api/send-esg-request`, {
+        const response = await fetch(`${backend}/send-esg-request`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
