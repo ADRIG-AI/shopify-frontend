@@ -41,6 +41,8 @@ const Admin = () => {
     role: "",
   });
   const [addError, setAddError] = useState("");
+  const [subUsersError, setSubUsersError] = useState("");
+  const [deleteError, setDeleteError] = useState("");
   const [loading, setLoading] = useState(true);
   const [adminId, setAdminId] = useState<string | null>(null);
   const [subuserLimit, setSubuserLimit] = useState(5);
@@ -48,16 +50,18 @@ const Admin = () => {
 
   const fetchSubUsers = async () => {
     try {
+      setSubUsersError("");
       const token = localStorage.getItem('token');
       console.log('Token:', token ? 'exists' : 'missing');
       
       if (!token) {
         console.error('No token found in localStorage');
         setSubUsers([]);
+        setSubUsersError('You are not logged in. Please log in again.');
         return;
       }
       
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/api/user/sub-users`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/user/sub-users`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -68,14 +72,17 @@ const Admin = () => {
       if (response.ok) {
         const data = await response.json();
         setSubUsers(data);
+        setSubUsersError("");
       } else {
         const errorText = await response.text();
         console.error('Failed to fetch sub-users:', response.status, errorText);
         setSubUsers([]);
+        setSubUsersError(`Failed to fetch users (${response.status}). ${errorText || 'Please retry.'}`);
       }
     } catch (error) {
       console.error('Error fetching sub-users:', error);
       setSubUsers([]);
+      setSubUsersError('Unable to load users. Please check your connection and try again.');
     }
   };
 
@@ -149,7 +156,7 @@ const Admin = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/api/user/sub-users`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT }/user/sub-users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -173,14 +180,15 @@ const Admin = () => {
         }
       }
     } catch (error) {
-      setAddError(error.message);
+      setAddError(error instanceof Error ? error.message : 'Failed to create user');
     }
   };
 
   const handleDeleteSubUser = async (id: string) => {
     try {
+      setDeleteError("");
       const token = localStorage.getItem('token');
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/api/user/sub-users/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_ENDPOINT}/user/sub-users/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -189,9 +197,13 @@ const Admin = () => {
 
       if (response.ok) {
         setSubUsers(subUsers.filter((u) => u.id !== id));
+      } else {
+        const errorText = await response.text();
+        setDeleteError(errorText || 'Failed to delete user.');
       }
     } catch (error) {
       console.error('Error deleting sub-user:', error);
+      setDeleteError('Unable to delete user right now. Please try again.');
     }
   };
 
@@ -268,6 +280,17 @@ const Admin = () => {
             </Button>
           </div>
         </div>
+
+        {subUsersError && (
+          <div className="mb-6 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {subUsersError}
+          </div>
+        )}
+        {deleteError && (
+          <div className="mb-6 rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+            {deleteError}
+          </div>
+        )}
 
         {showAddModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
